@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* You can add global styles to this file, and also import other style files */
+:root {
+  --main-color: #ff0000;
+  --light-color: #f0f3f2;
+  --shadow: rgba(145, 158, 171, 0.2) 0px 2px 4px -1px,
+    rgba(145, 158, 171, 0.14) 0px 4px 5px 0px,
+    rgba(145, 158, 171, 0.12) 0px 1px 10px 0px;
+  --font-family: 'Encode Sans Expanded', sans-serif;
+  --rating-color: #ffc908;
+}
+@layer components{
+    .btn{
+        @apply py-1 px-3 bg-slate-200 rounded-md hover:bg-slate-300 transition-colors duration-300;
+    }
+    .form-control{
+        @apply px-2 py-1 rounded-md focus:ring-2 focus:ring-opacity-50 focus:ring-primary-500 focus:outline-none border border-slate-400 border-opacity-50   focus:caret-primary-400 ;
+    }
+}
+  
+body {
+  background-color: #faf9fa;
+  font-family: var(--font-family) !important;
+}
+.rating-color {
+  color: var(--rating-color);
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+a,
+a:hover {
+  color: black;
+  text-decoration: none;
+}
+.product:hover {
+  box-shadow: var(--shadow);
+  border: solid 1px var(--main-color);
+}
+.product .btn {
+  transition: transform 1s, opacity 1s;
+  transform: translateY(100%);
+  opacity: 0;
+}
+.product:hover .btn {
+  opacity: 1;
+  transform: translateY(0%);
+}
+.font-sm {
+  font-size: 14px;
+}
+.text-main {
+  color: var(--main-color);
+}
+.bg-main {
+  background-color: var(--main-color) !important;
+}
+.bg-main-light {
+  background-color: var(--light-color) !important;
+}

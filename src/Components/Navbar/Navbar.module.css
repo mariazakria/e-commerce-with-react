@@ -1,0 +1,43 @@
+.navLink {
+    position: relative;
+  }
+  .showIcon{
+    font-size: 13px;
+  }
+  
+  .logoColor{
+    /* color:#84C198 ; */
+    color: #cc0000;
+    font-size: 22px;
+    /* background-color: #d9f7e3; */
+    padding: 13px;
+    border-top-left-radius:30%;
+    border-top-right-radius:20%;
+    border-bottom-right-radius:20%;
+    border-bottom-left-radius:20%;
+    box-shadow: 1px white;
+  }
+  .sIcon{
+    font-size: 40px;
+  }
+  .navLinkActive {
+    font-weight: 600;
+  }
+  
+  .navLink::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: #ff0000;
+    left: 0;
+    bottom: 0;
+    transition: width 0.3s ease;
+  }
+  
+  .navLink:hover::before,
+  .navLink:active::before,
+  .navLinkActive::before {
+    width: 100%;
+  }
+  

@@ -1,0 +1,58 @@
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import Loading from '../Loading/Loading'
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
+export default function SliderMain() {
+    const [category, setCategory] = useState(null);
+
+    // جلب التصنيفات من API
+    async function getCategories() {
+        try {
+            const options = {
+                url: "https://ecommerce.routemisr.com/api/v1/categories",
+                method: "GET"
+            };
+            const { data } = await axios.request(options);
+            setCategory(data.data);
+            console.log(data);
+        } catch (error) {
+            console.error('Error fetching categories:', error);
+        }
+    }
+
+    useEffect(() => {
+        getCategories();
+    }, []);
+
+    const settings = {
+        infinite: true, // التكرار اللانهائي
+        speed: 2000, // سرعة التبديل بين الشرائح
+        slidesToShow: 6, // عرض 6 شرائح في وقت واحد
+        slidesToScroll: 1, // التمرير بين شريحة واحدة (لكن هذا غير مهم طالما السلايدر يستمر في التكرار)
+        autoplay: true, // التمرير التلقائي
+        autoplaySpeed: 0, // لا يوجد تأخير بين التبديلات (السلايدر يتحرك باستمرار)
+        cssEase: 'linear', // السلايدر يتحرك بشكل سلس ودائم
+        pauseOnHover: false, // لا يتوقف عند التفاعل مع السلايدر
+        disableOnInteraction: false, // لا يتوقف التمرير عند التفاعل مع السلايدر
+      };
+    
+
+    return (
+        <section className='my-8'>
+        <h2 className='mb-5 font-semibold text-gray-600 text-lg'>Shop Popular Categories</h2>
+        {!category ? <Loading /> : (
+            <Slider {...settings}>
+                {category.map((category) => (
+                    <div key={category._id} className='h-64 mb-4 rounded-md overflow-hidden'>
+                        <img className='w-full h-full object-cover' src={category.image} alt={category.name} />
+                        <h3 className='mt-2 text-center'>{category.name}</h3>
+                    </div>
+                ))}
+            </Slider>
+        )}
+    </section>
+    );
+}
