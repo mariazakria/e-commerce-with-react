@@ -67,7 +67,7 @@ export default function Navbar() {
       {token && (
   <>
     <ul 
-      className={`flex gap-5 items-center ${isMenuOpen ? 'block' : 'hidden'} absolute -bottom-12 left-0 bg-slate-100 w-full p-4 shadow-lg items-center justify-center text-xl ${isMenuOpen ? 'z-10' : ''} lg:flex lg:static lg:flex-row lg:gap-5 lg:w-auto lg:p-0 lg:shadow-none`}
+      className={`flex gap-5 items-center ${isMenuOpen ? 'block' : 'hidden'} absolute     bottom-[8.8rem] left-0 bg-slate-100 w-full p-4 shadow-lg items-center justify-center text-xl ${isMenuOpen ? 'z-10' : ''} lg:flex lg:static lg:flex-row lg:gap-5 lg:w-auto lg:p-0 lg:shadow-none`}
     >
       <li>
         <Link to="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
