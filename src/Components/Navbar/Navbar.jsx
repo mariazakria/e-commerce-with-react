@@ -1,14 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styles from './Navbar.module.css'; 
 import { UserContext } from '../../Context/User.context';
 
 export default function Navbar() {
    let {token , logout} = useContext(UserContext)
+   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
-    <nav className='bg-slate-100 shadow-sm py-3'>
+    <nav className='bg-slate-100 shadow-sm px-2  sm:px-0 py-3'>
     <div className="container flex items-center align-center gap-12">
-       <div>
+       <div className=''>
           <Link to={'/'}>
           <span className={`fw-bold text-2xl text-primary-600`}>
           <i className={`fa-brands fa-shopify ${styles.sIcon}`}></i>
@@ -18,7 +20,12 @@ export default function Navbar() {
           </Link>
        </div>
       {token && (<>
-         <ul className='flex gap-5 items-center'>
+        
+
+          <ul 
+            className={`flex gap-5 items-center ${isMenuOpen ? 'block' : 'hidden'} flex-col absolute top-14 left-0 bg-slate-100 w-full p-4 shadow-lg ${isMenuOpen ? 'z-10' : ''} lg:flex lg:static lg:flex-row lg:gap-5 lg:w-auto lg:p-0 lg:shadow-none`}
+          >
+
           <li>
              <NavLink className={({isActive}) => {
                 return `relative before:absolute before:w-0 before:h-0.5 before:bg-primary-500 before:-bottom-1 before:left-0 hover:before:w-full before:transition-[width] before:duration-300 ${isActive ? "before:!w-full font-semibold" : ""}`
@@ -57,7 +64,10 @@ export default function Navbar() {
           </div>
        </div>
       </>)}
-       <ul className={`flex gap-5 items-center ${!token && "ms-auto"}`}>
+      <ul 
+         className={`flex gap-5 items-center ${isMenuOpen ? 'block' : 'hidden'} flex-row absolute -bottom-8 left-0 bg-slate-100 w-full p-4 shadow-lg items-center justify-center text-xl ${isMenuOpen ? 'z-10' : ''} lg:flex lg:static lg:flex-row lg:gap-5 lg:w-auto lg:p-0 lg:shadow-none ${!token && "ms-auto"}`}
+         >
+
           <li>
              <Link to="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
              <i className="fab fa-instagram"></i>
@@ -104,6 +114,13 @@ export default function Navbar() {
              </NavLink>
           </li>
          </>}
+         <button 
+                        className="relative lg:hidden flex items-center text-primary-500"
+
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <i className="fa-solid fa-bars text-2xl"></i> 
+          </button>
          {token && <>
             <li onClick={logout}>
              <NavLink to="/login">
