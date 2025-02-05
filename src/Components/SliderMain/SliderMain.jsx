@@ -45,8 +45,8 @@ export default function SliderMain() {
             >
                 {category.map((category) => (
                     <SwiperSlide key={category._id}>
-                        <div className='h-64 mb-4 rounded-md overflow-hidden'>
-                            <img className='w-full h-full object-cover' src={category.image} alt={category.name} />
+                        <div className='h-72 mb-4 rounded-md overflow-hidden'>
+                            <img className='w-full h-auto sm:h-full sm:object-cover ' src={category.image} alt={category.name} />
                         </div>
                         <h3 className='mt-2'>{category.name}</h3>
                     </SwiperSlide>
