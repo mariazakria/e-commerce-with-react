@@ -12,7 +12,7 @@ export default function Navbar() {
     <div className="container flex items-center align-center gap-12">
        <div className=''>
           <Link to={'/'}>
-          <span className={`fw-bold text-2xl text-primary-600`}>
+          <span className={`fw-bold text-lg sm:text-2xl text-primary-600`}>
           <i className={`fa-brands fa-shopify ${styles.sIcon}`}></i>
           hopN
           <i className={`fa-solid fa-eye text-xl   ${styles.showIcon}`}></i>w
@@ -64,42 +64,46 @@ export default function Navbar() {
           </div>
        </div>
       </>)}
-      <ul 
-         className={`flex gap-5 items-center ${isMenuOpen ? 'block' : 'hidden'} flex-row absolute -bottom-8 left-0 bg-slate-100 w-full p-4 shadow-lg items-center justify-center text-xl ${isMenuOpen ? 'z-10' : ''} lg:flex lg:static lg:flex-row lg:gap-5 lg:w-auto lg:p-0 lg:shadow-none ${!token && "ms-auto" , "bottom-[9rem]"}`}
-         >
+      {token && (
+  <>
+    <ul 
+      className={`flex gap-5 items-center ${isMenuOpen ? 'block' : 'hidden'} absolute -bottom-12 left-0 bg-slate-100 w-full p-4 shadow-lg items-center justify-center text-xl ${isMenuOpen ? 'z-10' : ''} lg:flex lg:static lg:flex-row lg:gap-5 lg:w-auto lg:p-0 lg:shadow-none`}
+    >
+      <li>
+        <Link to="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+          <i className="fab fa-instagram"></i>
+        </Link>
+      </li>
+      <li>
+        <Link to="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+          <i className="fab fa-facebook-f"></i>
+        </Link>
+      </li>
+      <li>
+        <Link to="https://www.tiktok.com" target="_blank" rel="noopener noreferrer">
+          <i className="fab fa-tiktok"></i>
+        </Link>
+      </li>
+      <li>
+        <Link to="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
+          <i className="fab fa-twitter"></i>
+        </Link>
+      </li>
+      <li>
+        <Link to="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+          <i className="fab fa-linkedin-in"></i>
+        </Link>
+      </li>
+      <li>
+        <Link to="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
+          <i className="fab fa-youtube"></i>
+        </Link>
+      </li>
+    </ul>
+  </>
+)}
 
-          <li>
-             <Link to="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-             <i className="fab fa-instagram"></i>
-             </Link>
-          </li>
-          <li>
-             <Link to="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-             <i className="fab fa-facebook-f"></i>
-             </Link>
-          </li>
-          <li>
-             <Link to="https://www.tiktok.com" target="_blank" rel="noopener noreferrer">
-             <i className="fab fa-tiktok"></i>
-             </Link>
-          </li>
-          <li>
-             <Link to="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
-             <i className="fab fa-twitter"></i>
-             </Link>
-          </li>
-          <li>
-             <Link to="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
-             <i className="fab fa-linkedin-in"></i>
-             </Link>
-          </li>
-          <li>
-             <Link to="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
-             <i className="fab fa-youtube"></i>
-             </Link>
-          </li>
-       </ul>
-       <ul className='flex gap-5 items-center'>
+<ul className={`flex gap-5 items-center ${!token ? "!ms-auto !justify-between" : ""}`}>
          {!token && <>
             <li>
              <NavLink className={({isActive}) => {
@@ -114,13 +118,15 @@ export default function Navbar() {
              </NavLink>
           </li>
          </>}
+        {token && <>
          <button 
                         className="relative lg:hidden flex items-center text-primary-500"
 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <i className="fa-solid fa-bars text-2xl"></i> 
-          </button>
+          </button></>
+        }
          {token && <>
             <li onClick={logout}>
              <NavLink to="/login">
