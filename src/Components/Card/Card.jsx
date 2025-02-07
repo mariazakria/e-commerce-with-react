@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { cartContext } from '../../Context/Cart.context';
 
 export default function Card({ productInfo }) {
-  const { category, imageCover, price, ratingsAverage, title, description } = productInfo;
-
+  const { category, imageCover, price, ratingsAverage, title, description, id } = productInfo;
+const {addProductToCart} = useContext(cartContext)
   return (
     <>
       <div className="mb-8 card group rounded-lg shadow-lg overflow-hidden cursor-pointer transition-transform duration-300  hover:scale-100  hover:border hover:border-primary-600">
@@ -36,7 +37,9 @@ export default function Card({ productInfo }) {
 
           <div className="relative">
             <div className="w-full mt-3 flex justify-end">
-              <button className="ms-5 rounded-lg px-2 py-2 text-light fw-bold bg-primary-600 text-white font-semibold opacity-0 translate-y-5 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+              <button onClick={()=>{
+                addProductToCart({productId : id})
+              }} className="ms-5 rounded-lg px-2 py-2 text-light fw-bold bg-primary-600 text-white font-semibold opacity-0 translate-y-5 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
                 Add To Cart
               </button>
             </div>

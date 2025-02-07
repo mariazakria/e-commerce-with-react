@@ -8,7 +8,9 @@ import { Toaster } from 'react-hot-toast'
 import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute'
 import GuestRoute from './Components/GuestRoute/GuestRoute'
 import UserProvider from './Context/User.context'
-
+import CartProvider from './Context/Cart.context'
+import Cart from './Pages/Cart/Cart'
+import CartEmpty from './Components/CartEmpty/CartEmpty'
 export default function App() {
   const routes = createBrowserRouter([
     {
@@ -24,6 +26,14 @@ export default function App() {
         {
           path: '*',
           element: <Notfound />
+        },
+        {
+          path: '/cartempty',
+          element: <CartEmpty />
+        },
+        {
+          path:"/cart",
+          element:<Cart/>
         },
         {
           index: true,
@@ -52,8 +62,12 @@ export default function App() {
     
   return (
     <>
+  
     <UserProvider>
-      <RouterProvider router = {routes}/>
+    <CartProvider>
+    <RouterProvider router = {routes}/>
+
+      </CartProvider>
 
     </UserProvider>
     <Toaster />

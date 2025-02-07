@@ -1,14 +1,20 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import styles from './Navbar.module.css'; 
 import { UserContext } from '../../Context/User.context';
+import { cartContext } from '../../Context/Cart.context';
 
 export default function Navbar() {
    let {token , logout} = useContext(UserContext)
+   const{cart,getProductFromCart} = useContext(cartContext)
    const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+   // elmoshkla : an f kol mra hygeb haga 8er elcart msh hygebli el3dd
+   //el7l :  kol mra y3ml render ysh8lha w y3ml edit l number elcart
+useEffect(()=>{
+   getProductFromCart()
+},[])
   return (
-    <nav className='bg-slate-100 shadow-sm px-2  sm:px-0 py-3'>
+    <nav className='bg-slate-100 shadow px-2  sm:px-0 py-3 fixed top-0 left-0 right-0 z-50'>
     <div className="container flex items-center align-center gap-12">
        <div className=''>
           <Link to={'/'}>
@@ -57,12 +63,14 @@ export default function Navbar() {
              </NavLink>
           </li>
        </ul>
-       <div className="relative cart ml-auto cursor-pointer">
+       <Link to="/cart" className="relative cart ml-auto cursor-pointer">
           <i className="fa-solid fa-cart-plus text-lg"></i>
           <div className="absolute flex justify-center items-center right-0 top-0 cart-counter translate-x-1/2 -translate-y-1/2 h-5 w-5 bg-primary-600 rounded-full text-white">
-             <i className="fa-solid fa-spinner text-sm fa-spin" aria-hidden="true"></i>
+             {cart == null ? <i className="fa-solid fa-spinner text-sm fa-spin" aria-hidden="true"></i> : 
+              <span className='text-sm'>{cart.numOfCartItems}</span>}
+            
           </div>
-       </div>
+       </Link>
       </>)}
       {token && (
   <>
