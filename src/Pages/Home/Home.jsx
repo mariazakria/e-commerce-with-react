@@ -21,7 +21,7 @@ export default function Home() {
     <>
     <HomeSlider/>
     <SliderMain/>
-    {!product ? <Loading/> : <div className=" grid sm:gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+    {!product ? <Loading/> : <div className="px-4 sm:px-0 grid sm:gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
       {product.map((product)=>{return <Card productInfo={product} key={product.id}/>})}
     </div> }
     
