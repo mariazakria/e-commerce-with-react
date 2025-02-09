@@ -29,15 +29,15 @@ export default function App() {
           element: <Notfound />
         },
         {
-          path: '/cartempty',
+          path: 'cartempty',
           element: <CartEmpty />
         },
         {
-          path:"/cart",
+          path:"cart",
           element:<Cart/>
         },
         {
-          path:"products/:id",
+          path:"product/:id",
           element:<ProductDetails/>
         },
         {

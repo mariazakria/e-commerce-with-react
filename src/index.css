@@ -24,6 +24,13 @@ body {
   background-color: #faf9fa;
   font-family: var(--font-family) !important;
 }
+.image-gallery-thumbnail.active, .image-gallery-thumbnail:focus,.image-gallery-thumbnail:hover {
+  outline: none;
+  border: 4px solid #ff0000;
+}
+.image-gallery-icon:hover {
+  color: #ff0000;
+}
 .rating-color {
   color: var(--rating-color);
 }
