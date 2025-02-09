@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { cartContext } from '../../Context/Cart.context';
+import { Link } from 'react-router-dom';
 export default function CartItem({productInfo}) {
     const{count,price,product}= productInfo;
     const{imageCover,category,id,title }=product;
@@ -9,7 +10,7 @@ export default function CartItem({productInfo}) {
    <div className='flex gap-2'>
    <div className="cart flex grow items-center justify-between bg-gray-100 py-4 px-6 rounded-lg">
    <img src={imageCover} alt={title} className='w-24 h-24 border-white object-cover rounded-md' />
-   <h3 className='text-lg text-gray-700 font-semibold'>{title}</h3>
+   <h3 className='text-lg text-gray-700 font-semibold'><Link to={`/product/${id}`}>{title}</Link></h3>
    <h4 className=' text-gray-400 font-semibold'> {category.name}</h4>
    <div className="count ">
 

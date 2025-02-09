@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { cartContext } from '../../Context/Cart.context';
+import { Link } from 'react-router-dom';
 
 export default function Card({ productInfo }) {
   const { category, imageCover, price, ratingsAverage, title, description, id } = productInfo;
@@ -10,9 +11,9 @@ const {addProductToCart} = useContext(cartContext)
         <div className="relative">
           <img src={imageCover} alt={title} className="card-img" />
           <div className="layer group-hover:opacity-100 transition-opacity duration-300 gap-2 flex justify-center items-center absolute w-full h-full left-0 top-0 bg-slate-400 bg-opacity-35 opacity-0">
-            <div className="icon cursor-pointer w-8 h-8 rounded-full bg-primary-500 text-white flex justify-center items-center">
+            <Link to={`/product/${id}`} className="icon cursor-pointer w-8 h-8 rounded-full bg-primary-500 text-white hover:text-white flex justify-center items-center">
               <i className="fa-solid fa-eye"></i>
-            </div>
+            </Link>
             <div className="icon cursor-pointer w-8 h-8 rounded-full bg-primary-500 text-white flex justify-center items-center">
               <i className="fa-solid fa-heart"></i>
             </div>

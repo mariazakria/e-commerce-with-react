@@ -11,6 +11,7 @@ import UserProvider from './Context/User.context'
 import CartProvider from './Context/Cart.context'
 import Cart from './Pages/Cart/Cart'
 import CartEmpty from './Components/CartEmpty/CartEmpty'
+import ProductDetails from './Pages/ProductDetails/ProductDetails'
 export default function App() {
   const routes = createBrowserRouter([
     {
@@ -34,6 +35,10 @@ export default function App() {
         {
           path:"/cart",
           element:<Cart/>
+        },
+        {
+          path:"products/:id",
+          element:<ProductDetails/>
         },
         {
           index: true,
