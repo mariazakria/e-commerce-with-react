@@ -11,6 +11,9 @@
   --font-family: 'Encode Sans Expanded', sans-serif;
   --rating-color: #ffc908;
 }
+.image-gallery-content.fullscreen {
+  background: #f0f3f2;
+}
 @layer components{
     .btn{
         @apply py-1 px-3 bg-slate-200 rounded-md hover:bg-slate-300 transition-colors duration-300;

@@ -35,67 +35,71 @@ console.log(id);
     return(
       <>
       {productDetails ?   
-      <section className='grid gap-5 grid-cols-12'>
-         <div className='col-span-3'>
-            <ReactImageGallery 
+      <section className='px-3 sm:px-0 grid gap-5 grid-cols-12'>
+      <div className='col-span-12 md:col-span-5'> 
+         <ReactImageGallery 
             showFullscreenButton={true}
             showPlayButton={false}
             showNav={false}
-             items={productDetails.images.map((image)=>{
+            items={productDetails.images.map((image)=> {
                return {
-                  original:image,
-                  thumbnail:image,
+                  original: image,
+                  thumbnail: image,
                }
-            })}/>
+            })}
+         />
+      </div>
+      <div className=' col-span-12 md:col-span-7 space-y-4'> 
+         <div className="body-header">
+            <h2 className='text-2xl font-semibold text-gray-600'>{productDetails.title}</h2>
+            <h3 className='text-primary-500'>{productDetails.category.name}</h3>
          </div>
-         <div className='col-span-9 space-y-4'>
-            <div className="body-header">
-               <h2 className='text-2xl font-semibold text-gray-600'>{productDetails.title}</h2>
-               <h3 className='text-primary-500'>{productDetails.category.name}</h3>
+         <p className='text-gray-400'>{productDetails.description}</p>
+   
+         <div className=" flex justify-between items-center">
+            <span>{productDetails.price} L.E</span>
+            <div className="rating flex justify-between items-center">
+               <i className='mr-2 fa-solid fa-star text-yellow-400'></i>
+               <span>{productDetails.ratingsAverage}</span>
             </div>
-            <p className='text-gray-400'>{productDetails.description}</p>
-
-            <div className=" flex justify-between items-center">
-               <span>{productDetails.price} L.E</span>
-               <div className="rating flex justify-between items-center">
-                  <i className='mr-2 fa-solid fa-star text-yellow-400'></i>
-                  <span>{productDetails.ratingsAverage}</span>
-               </div>
-            </div>
-            
-            <div>
-               <div className="mt-2 flex items-center space-x-3">
-                  <button
-                     onClick={()=>{
-                  UpdateProduct({
-                  productId:id,
-                  count: count - 1
-                  })
+         </div>
+         
+         <div>
+            <div className="mt-2 flex items-center space-x-3">
+               <button
+                  onClick={() => {
+                     UpdateProduct({
+                        productId: id,
+                        count: count - 1
+                     })
                   }}
                   className="px-3 py-1 border rounded-md hover:bg-gray-100"
-                  >
+               >
                   <i className='fa-solid fa-minus'></i>
-                  </button>
-                  <span className="text-gray-900">1</span>
-                  <button
-                     onClick={()=>{
-                  UpdateProduct({
-                  productId:id,
-                  count: count + 1
-                  })
+               </button>
+               <span className="text-gray-900">1</span>
+               <button
+                  onClick={() => {
+                     UpdateProduct({
+                        productId: id,
+                        count: count + 1
+                     })
                   }}
                   className="px-3 py-1 border rounded-md hover:bg-gray-100"
-                  >
+               >
                   <i className='fa-solid fa-plus'></i>
-                  </button>
-               </div>
+               </button>
             </div>
-            <button onClick={()=>{
-            addProductToCart({productId : id})
-            }} 
-            className="btn uppercase w-full bg-primary-500 hover:bg-primary-600 text-white font-bold">Add To Cart</button>
          </div>
-      </section>
+         <button onClick={() => {
+            addProductToCart({productId : id})
+         }} 
+         className="btn uppercase w-full bg-primary-500 hover:bg-primary-600 text-white font-bold">
+            Add To Cart
+         </button>
+      </div>
+   </section>
+   
       : 
       <Loading/>
       }
