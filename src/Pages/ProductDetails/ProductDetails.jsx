@@ -95,7 +95,7 @@ export default function ProductDetails() {
           </section>
           <section className="py-8 px-3 sm:px-0">
             <div className="mb-8">
-              <h2 className="text-2xl font-bold">Related Products</h2>
+              <h2 className="text-2xl text-gray-600 font-semibold">Related Products</h2>
             </div>
             {relatedProducts ? (
               <Slider
@@ -107,7 +107,7 @@ export default function ProductDetails() {
                 pauseOnHover={false}
                 autoplay={true}
                 autoplaySpeed={3000}
-                arrows={true}
+                arrows={false}
                 responsive={[
                   {
                     breakpoint: 1024,

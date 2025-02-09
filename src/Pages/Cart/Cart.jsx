@@ -4,6 +4,7 @@ import Loading from "../../Components/Loading/Loading";
 import CartItem from "../../Components/CartItem/CartItem";
 import cartEmpty from "../../assets/images/shopping-cart-logo-shopping-basket-design-vector-illustration-b.png"
 import CartEmpty from "../../Components/CartEmpty/CartEmpty";
+import { Link } from "react-router-dom";
 export default function Cart() {
    const {getProductFromCart, cart,ClearCart} =  useContext(cartContext)
    useEffect(()=>{getProductFromCart();},[])
@@ -28,10 +29,19 @@ export default function Cart() {
             <i className="fa-solid fa-sack-dollar text-2xl mr-2 text-primary-600"></i>    
             Your Total Price <span className="text-primary-600 font-semibold underline">{cart.data.totalCartPrice}</span>
          </p>
-         <button onClick={ClearCart} className="btn uppercase bg-primary-600 hover:bg-primary-700 text-white font-bold ">
+       <div className="flex flex-col gap-3">
+       <button onClick={ClearCart} className="btn uppercase bg-primary-600 hover:transition-colors duration-500 hover:bg-primary-700 text-white font-bold ">
           <i className="fa-solid fa-trash mr-2"></i>
           Clear Cart
          </button>
+         <Link 
+  to="/checkout" 
+  className="text-primary-600 border-2 border-primary-600 px-2 py-1  font-bold rounded-md hover:bg-primary-600 hover:text-white transition-all"
+>
+  Next Step
+</Link>
+       </div>
+       
       </div>
    </div>
    </>

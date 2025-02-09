@@ -12,6 +12,7 @@ import CartProvider from './Context/Cart.context'
 import Cart from './Pages/Cart/Cart'
 import CartEmpty from './Components/CartEmpty/CartEmpty'
 import ProductDetails from './Pages/ProductDetails/ProductDetails'
+import CheckOut from './Pages/CheckOut/CheckOut'
 export default function App() {
   const routes = createBrowserRouter([
     {
@@ -44,6 +45,10 @@ export default function App() {
           index: true,
           element: <Home />
         },
+        {
+          path:"checkout",
+          element:<CheckOut/>
+        }
       ],
     },
     // dol msh hys2lhom
