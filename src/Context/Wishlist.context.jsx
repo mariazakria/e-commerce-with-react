@@ -20,18 +20,17 @@ export default function WishlistProvider({ children }) {
             const { data } = await axios.get('https://ecommerce.routemisr.com/api/v1/wishlist', {
                 headers: { token }
             });
-            setWishlistItems(data.data);
-            return data;
+            console.log('Wishlist Data:', data.data); // Log the response to check the structure
+            setWishlistItems(data.data || []); // Ensure the data is set correctly
         } catch (error) {
             console.error('Error getting wishlist:', error.response?.data || error.message);
-            return error;
         } finally {
             setLoading(false);
         }
     }
 
     async function addToWishlist(productId) {
-        const loading = toast.loading("Waiding to add produt to wishlist")
+        const loading = toast.loading('Waiting to add product to wishlist');
         try {
             if (!token) {
                 toast.error('Please login to add items to wishlist');
@@ -50,13 +49,11 @@ export default function WishlistProvider({ children }) {
             } else {
                 throw new Error(data.message || 'Failed to add product');
             }
-            return data;
         } catch (error) {
             console.error('Error adding to wishlist:', error.response?.data || error.message);
             toast.error(error.response?.data?.message || 'Failed to add product to wishlist');
-            return error;
-        }finally{
-            toast.dismiss(loading)
+        } finally {
+            toast.dismiss(loading);
         }
     }
 
@@ -79,11 +76,9 @@ export default function WishlistProvider({ children }) {
             } else {
                 throw new Error(data.message || 'Failed to remove product');
             }
-            return data;
         } catch (error) {
             console.error('Error removing from wishlist:', error.response?.data || error.message);
             toast.error(error.response?.data?.message || 'Failed to remove product from wishlist');
-            return error;
         }
     }
 
