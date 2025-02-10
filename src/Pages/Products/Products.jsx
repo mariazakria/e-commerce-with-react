@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Helmet } from 'react-helmet';
 import Loading from '../../Components/Loading/Loading';
 import { Link, useSearchParams } from 'react-router-dom';
-import Card from '../../Components/Card/Card';
 
 export default function Products() {
     const [products, setProducts] = useState([]);

@@ -5,6 +5,8 @@ import CartItem from "../../Components/CartItem/CartItem";
 import cartEmpty from "../../assets/images/shopping-cart-logo-shopping-basket-design-vector-illustration-b.png"
 import CartEmpty from "../../Components/CartEmpty/CartEmpty";
 import { Link } from "react-router-dom";
+import { Helmet } from 'react-helmet';
+
 export default function Cart() {
    const {getProductFromCart, cart,ClearCart} =  useContext(cartContext)
    useEffect(()=>{getProductFromCart();},[])

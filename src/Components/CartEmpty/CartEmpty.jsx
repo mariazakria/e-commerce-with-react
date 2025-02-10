@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom"
 import cartEmpty from "../../assets/images/supermarket-shopping-cart-concept-illustration_114360-22408.avif"
+import { Helmet } from 'react-helmet';
+
 
 export default function CartEmpty() {
   return (
