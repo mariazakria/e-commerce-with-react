@@ -24,7 +24,7 @@ export default function Cart() {
       {cart.data.products.map((product)=>(
       <CartItem key={product._id} productInfo={product}/>
       ))}
-      <div className="mt-5 flex items-center justify-between">
+      <div className="px-2 flex-col sm:flex-row sm:py-0 mt-5 flex gap-4 sm:gap-0  sm:items-center justify-between">
          <p className="text-xl">
             <i className="fa-solid fa-sack-dollar text-2xl mr-2 text-primary-600"></i>    
             Your Total Price <span className="text-primary-600 font-semibold underline">{cart.data.totalCartPrice}</span>
