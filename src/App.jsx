@@ -19,75 +19,97 @@ import Brands from './Pages/Brands/Brands'
 import Products from './Pages/Products/Products'
 import Categories from './Pages/Categories/Categories'
 import Favorite from './Pages/Favorite/Favorite'
-
 export default function App() {
   const routes = createBrowserRouter([
     {
+      // hys2l elly hna bs 3amla protected route wla la
       path: "/",
-      element: <Layout />,
+      element: (
+        <ProtectedRoute>
+          {/* bb3t layout props llhome kda */}
+          <Layout />
+        </ProtectedRoute>
+      ),
       children: [
+        {
+          path: '*',
+          element: <Notfound />
+        },
+        {
+          path: 'cartempty',
+          element: <CartEmpty />
+        },
+        {
+          path: 'allorders',
+          element: <Orders />
+        },
+        {
+          path: 'brands',
+          element: <Brands />
+        },
+        {
+          path: 'products',
+          element: <Products />
+        },
+        {
+          path: 'categories',
+          element: <Categories />
+        },
+        {
+          path:"cart",
+          element:<Cart/>
+        },
+        {
+          path:"product/:id",
+          element:<ProductDetails/>
+        },
         {
           index: true,
           element: <Home />
         },
         {
-          path: "login",
-          element: <GuestRoute><Login /></GuestRoute>
+          path:"checkout",
+          element:<CheckOut/>
         },
         {
-          path: "signup",
-          element: <GuestRoute><Signup /></GuestRoute>
+          path:"wishlist",
+          element:<Favorite/>
+        }
+      ],
+    },
+    // dol msh hys2lhom
+    {
+      path:'/',
+      element: <GuestRoute><Layout/></GuestRoute>,
+      children:[
+        {
+          path: '/signup',
+          element: <Signup />
         },
         {
-          path: "products",
-          element: <Products />
-        },
-        {
-          path: "categories",
-          element: <Categories />
-        },
-        {
-          path: "brands",
-          element: <Brands />
-        },
-        {
-          path: "wishlist",
-          element: <ProtectedRoute><Favorite /></ProtectedRoute>
-        },
-        {
-          path: "cart",
-          element: <ProtectedRoute><Cart /></ProtectedRoute>
-        },
-        {
-          path: "product/:id",
-          element: <ProductDetails />
-        },
-        {
-          path: "checkout",
-          element: <ProtectedRoute><CheckOut /></ProtectedRoute>
-        },
-        {
-          path: "allorders",
-          element: <ProtectedRoute><Orders /></ProtectedRoute>
-        },
-        {
-          path: "*",
-          element: <Notfound />
+          path: '/login',
+          element: <Login />
         }
       ]
     }
-  ])
-
+    
+  ]);
+  
+    
   return (
     <>
-      <UserProvider>
-        <WishlistProvider>
-          <CartProvider>
-            <RouterProvider router={routes} />
-            <Toaster />
-          </CartProvider>
-        </WishlistProvider>
-      </UserProvider>
+  
+    <UserProvider>
+    <WishlistProvider>
+    <CartProvider>
+    <RouterProvider router = {routes}/>
+
+      </CartProvider>
+    </WishlistProvider>
+
+    </UserProvider>
+    <Toaster />
+
     </>
   )
 }
