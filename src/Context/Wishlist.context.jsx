@@ -31,6 +31,7 @@ export default function WishlistProvider({ children }) {
     }
 
     async function addToWishlist(productId) {
+        const loading = toast.loading("Waiding to add produt to wishlist")
         try {
             if (!token) {
                 toast.error('Please login to add items to wishlist');
@@ -54,6 +55,8 @@ export default function WishlistProvider({ children }) {
             console.error('Error adding to wishlist:', error.response?.data || error.message);
             toast.error(error.response?.data?.message || 'Failed to add product to wishlist');
             return error;
+        }finally{
+            toast.dismiss(loading)
         }
     }
 
