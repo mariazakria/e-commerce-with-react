@@ -1,8 +1,8 @@
 import img1 from "../../assets/images/slider-image-1.jpeg"
 import img2 from "../../assets/images/slider-image-2.jpeg"
 import img3 from "../../assets/images/slider-image-3.jpeg"
-import 'swiper/swiper-bundle.min.css';
-
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 // swiper ==> by3ml swiper momkn ab3tlo props
 // SwiperSlide ==> hy3ml slide gwa elslider
 // slidesPerView={1}

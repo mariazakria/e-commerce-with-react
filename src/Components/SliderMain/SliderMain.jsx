@@ -1,8 +1,8 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Loading from '../Loading/Loading'
-import 'swiper/swiper-bundle.min.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
 export default function SliderMain() {
     const[category, setCategory] = useState(null);
