@@ -76,7 +76,7 @@ export default function CheckOut() {
             if(paymentMethod == "cash"){
                 CreateCashOrder(values)
             }
-            if(paymentMethod == "onlie"){
+            if(paymentMethod == "online"){
                 OnlinePayment(values)
             }
         },
@@ -89,62 +89,76 @@ export default function CheckOut() {
 //   };
 
 return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="  py-12">
        <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row gap-8">
              {/* Shipping Information */}
-             <div className="md:w-2/3">
-                <div className="bg-white rounded-lg shadow-md p-6">
+             <div className="w-full">
+                <div className=" rounded-lg  p-6">
                    <h2 className="text-2xl font-semibold mb-6 text-gray-700">Shipping Details</h2>
                    <form onSubmit={formik.handleSubmit} className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                          <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                            City
+                         <label className="flex font-semibold items-center gap-2 text-md  text-gray-700  pb-2">
+                               <i className="fas fa-city text-blue-500"></i>
+                               City
                             </label>
-                            <input
-                               id="shippingAddress.city"
-                               type="text"
-                               name="shippingAddress.city"
-                               value={formik.values.shippingAddress.city}
-                               onChange={formik.handleChange}
-                               onBlur={formik.handleBlur}
-                               placeholder="Enter your city"
-                               className="w-full outline-none px-4 py-3 border border-gray-300 rounded-md focus:ring-2  transition-all duration-200"
-                               required
+                            <div className="relative">
+                              
+                               <input
+                                  id="shippingAddress.city"
+                                  type="text"
+                                  name="shippingAddress.city"
+                                  value={formik.values.shippingAddress.city}
+                                  onChange={formik.handleChange}
+                                  onBlur={formik.handleBlur}
+                                  placeholder="Enter your city"
+                                  className="w-full bg-transparent outline-none pl-2 px-4 py-3 border border-gray-300 rounded-md focus:ring-2 transition-all duration-200"
+                                  required
                                />
+                            </div>
                          </div>
                          <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
-                            Phone Number
+                         <label className="flex font-semibold items-center gap-2 text-md  text-gray-700 pb-2">
+                               <i className="fas fa-phone text-blue-500"></i>
+                               Phone Number
                             </label>
-                            <input
-                               id="shippingAddress.phone"
-                               type="tel"
-                               onBlur={formik.handleBlur}
-                               name="shippingAddress.phone"
-                               value={formik.values.shippingAddress.phone}                      onChange={formik.handleChange}
-                               placeholder="Enter your phone number"
-                               className="w-full outline-none px-4 py-3 border border-gray-300 rounded-md focus:ring-2  transition-all duration-200"
-                               required
+                            <div className="relative">
+                              
+                               <input
+                                  id="shippingAddress.phone"
+                                  type="tel"
+                                  onBlur={formik.handleBlur}
+                                  name="shippingAddress.phone"
+                                  value={formik.values.shippingAddress.phone}                      
+                                  onChange={formik.handleChange}
+                                  placeholder="Enter your phone number"
+                                  className="w-full bg-transparent outline-none pl-2 px-4 py-3 border border-gray-300 rounded-md focus:ring-2 transition-all duration-200"
+                                  required
                                />
+                            </div>
                          </div>
                       </div>
                       <div>
-                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                         Address Details
+                      <label className="flex font-semibold  items-center gap-2 text-md  text-gray-700 pb-2">
+                            <i className="fas fa-map-marker-alt text-blue-500"></i>
+                            Address Details
                          </label>
+                         <div className="relative">
+                            
                          <textarea
-                            id="shippingAddress.details"
-                            name="shippingAddress.details"
-                            onBlur={formik.handleBlur}
-                            value={formik.values.shippingAddress.details} 
-                            onChange={formik.handleChange}
-                            placeholder="Enter your complete address details"
-                            rows="4"
-                            className="w-full px-4 py-3 border outline-none border-gray-300 rounded-md focus:ring-2  transition-all duration-200 resize-none"
-                            required
-                            ></textarea>
+    id="shippingAddress.details"
+    name="shippingAddress.details"
+    onBlur={formik.handleBlur}
+    value={formik.values.shippingAddress.details}
+    onChange={formik.handleChange}
+    placeholder="Enter your complete address details"
+    rows="4"
+    className="w-full bg-transparent pl-2 px-4 py-3 border outline-none border-gray-300 rounded-md focus:ring-2 transition-all duration-200 resize-none"
+    required
+></textarea>
+
+                         </div>
                       </div>
                       <div className="flex gap-3 justify-end flex-col md:flex-row">
                          <button
