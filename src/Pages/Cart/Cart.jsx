@@ -34,16 +34,19 @@ export default function Cart() {
           <i className="fa-solid fa-trash mr-2"></i>
           Clear Cart
          </button>
-         <Link 
-  to="/checkout" 
-  className="text-primary-600 border-2 border-primary-600 px-2 py-1  font-bold rounded-md hover:bg-primary-600 hover:text-white transition-all"
->
-  Next Step
-</Link>
+        
        </div>
-       
+   
       </div>
+
+    
    </div>
+   <Link 
+  to="/checkout" 
+  className="text-primary-600 inline-block text-center mt-8 border-2 w-full border-primary-600 px-2 py-1  font-bold rounded-md hover:bg-primary-600 hover:text-white transition-all"
+>
+  Next Step(Payment)
+</Link>
    </>
    }
 </section>

@@ -13,6 +13,7 @@ import Cart from './Pages/Cart/Cart'
 import CartEmpty from './Components/CartEmpty/CartEmpty'
 import ProductDetails from './Pages/ProductDetails/ProductDetails'
 import CheckOut from './Pages/CheckOut/CheckOut'
+import Orders from './Pages/Orders/Orders'
 export default function App() {
   const routes = createBrowserRouter([
     {
@@ -32,6 +33,10 @@ export default function App() {
         {
           path: 'cartempty',
           element: <CartEmpty />
+        },
+        {
+          path: 'allorders',
+          element: <Orders />
         },
         {
           path:"cart",

@@ -2,7 +2,6 @@ import { createContext, useContext, useState } from "react";
 import  { UserContext } from "./User.context";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { data } from "react-router-dom";
 
 export const cartContext = createContext(null)
 
