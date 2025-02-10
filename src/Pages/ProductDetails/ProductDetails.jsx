@@ -8,6 +8,7 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Card from '../../Components/Card/Card';
+import { Helmet } from 'react-helmet';
 
 export default function ProductDetails() {
   const { addProductToCart } = useContext(cartContext);
@@ -56,6 +57,47 @@ export default function ProductDetails() {
     <>
       {productDetails ? (
         <>
+          <Helmet>
+            <title>{productDetails.title} - ShopNow Store</title>
+            <meta 
+              name="description" 
+              content={productDetails.description.length > 160 
+                ? productDetails.description.substring(0, 157) + '...' 
+                : productDetails.description} 
+            />
+            <meta name="author" content="Maria Zakaria" />
+            <meta name="robots" content="index, follow" />
+            <meta 
+              name="keywords" 
+              content={`${productDetails.title}, ${productDetails.category.name}, online shopping, ShopNow Store, ${productDetails.brand?.name || ''}`} 
+            />
+            
+            <meta property="og:title" content={`${productDetails.title} - ShopNow Store`} />
+            <meta property="og:type" content="product" />
+            <meta property="og:url" content={window.location.href} />
+            <meta property="og:site_name" content="ShopNow Store" />
+            <meta property="og:locale" content="en_US" />
+            <meta property="og:description" content={productDetails.description} />
+            <meta property="og:image" content={productDetails.imageCover} />
+            <meta property="og:image:alt" content={productDetails.title} />
+            
+            <meta property="product:price:amount" content={productDetails.price} />
+            <meta property="product:price:currency" content="EGP" />
+            <meta property="product:availability" content={productDetails.quantity > 0 ? 'in stock' : 'out of stock'} />
+            <meta property="product:condition" content="new" />
+            <meta property="product:brand" content={productDetails.brand?.name || 'ShopNow Store'} />
+            <meta property="product:category" content={productDetails.category.name} />
+            
+            <meta name="twitter:card" content="product" />
+            <meta name="twitter:title" content={`${productDetails.title} - ShopNow Store`} />
+            <meta name="twitter:description" content={productDetails.description} />
+            <meta name="twitter:image" content={productDetails.imageCover} />
+            <meta name="twitter:site" content="@shopnowstore" />
+            <meta name="twitter:creator" content="@mariazakria" />
+            
+            <link rel="canonical" href={window.location.href} />
+          </Helmet>
+
           <section className='px-3 sm:py-3 sm:px-0 grid gap-5 grid-cols-12 '>
             <div className='col-span-12 md:col-span-5'>
               <ReactImageGallery

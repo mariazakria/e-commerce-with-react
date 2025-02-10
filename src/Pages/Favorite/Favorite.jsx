@@ -41,6 +41,35 @@ export default function Favorite() {
         <>
             <Helmet>
                 <title>My Wishlist - ShopNow Store</title>
+                <meta 
+                    name="description" 
+                    content="View and manage your wishlist at ShopNow Store. Save your favorite items and easily add them to your cart when you're ready to purchase."
+                />
+                <meta name="author" content="Maria Zakaria" />
+                <meta name="robots" content="noindex, follow" />
+                <meta name="keywords" content="wishlist, favorite items, saved products, shopping list, ShopNow Store" />
+                
+                <meta property="og:title" content="My Wishlist - ShopNow Store" />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content={window.location.href} />
+                <meta property="og:site_name" content="ShopNow Store" />
+                <meta property="og:locale" content="en_US" />
+                <meta 
+                    property="og:description" 
+                    content="View and manage your wishlist at ShopNow Store. Save your favorite items and easily add them to your cart when you're ready to purchase."
+                />
+                <meta property="og:image" content="https://img.freepik.com/free-vector/wish-list-concept-illustration_114360-3900.jpg?uid=R140459377&ga=GA1.1.1165056533.1738031764&semt=ais_hybrid" />
+                <meta property="og:image:alt" content="My Wishlist at ShopNow Store" />
+                
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="My Wishlist - ShopNow Store" />
+                <meta 
+                    name="twitter:description" 
+                    content="View and manage your wishlist at ShopNow Store. Save your favorite items and easily add them to your cart when you're ready to purchase."
+                />
+                <meta name="twitter:image" content="https://img.freepik.com/free-vector/wish-list-concept-illustration_114360-3900.jpg?uid=R140459377&ga=GA1.1.1165056533.1738031764&semt=ais_hybrid" />
+                <meta name="twitter:site" content="@shopnowstore" />
+                <meta name="twitter:creator" content="@mariazakria" />
             </Helmet>
 
             <div className="container mx-auto px-4 py-8">

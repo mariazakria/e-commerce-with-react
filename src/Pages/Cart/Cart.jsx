@@ -10,6 +10,31 @@ export default function Cart() {
    useEffect(()=>{getProductFromCart();},[])
   return (
    <>
+            <Helmet>
+            <title>Shopping Cart - ShopNow Store</title>
+            <meta
+               name="description"
+               content="View and manage the items in your shopping cart at My Ecommerce Site. Secure checkout and fast delivery."
+            />
+            <meta name="robots" content="index, follow" />
+            <meta
+               property="og:title"
+               content="Shopping Cart - ShopNow Store"
+            />
+            <meta
+               property="og:description"
+               content="View and manage the items in your shopping cart at My Ecommerce Site. Secure checkout and fast delivery."
+            />
+            <meta
+               property="og:image"
+               content={cartEmpty} 
+            />
+            <meta
+               property="og:url"
+               content={window.location.href}
+            />
+         </Helmet>
+
    {cart == null ? <Loading/> :
    <section>
    <div className="flex space-x-4 items-center">

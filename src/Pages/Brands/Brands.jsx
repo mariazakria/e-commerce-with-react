@@ -17,7 +17,7 @@ export default function Brands() {
         } catch (error) {
             console.log(error);
         } finally {
-            setLoading(false);  // Set loading to false when fetching is complete
+            setLoading(false);  
         }
     }
 
@@ -29,7 +29,9 @@ export default function Brands() {
         <>
             <Helmet>
                 <title>Top Brands - ShopNow Store | Best Deals & Exclusive Offers</title>
+                <meta name="author" content="Maria Zakaria" />
                 <meta property="og:price:currency" content="EGP" />
+                <meta property="og:image" content="https://img.freepik.com/free-vector/esports-collaboration-abstract-concept-illustration_335657-2195.jpg?uid=R140459377&ga=GA1.1.1165056533.1738031764&semt=ais_hybrid" />
                 <meta property="og:type" content="product" />
                 <meta name="description" content="Buy Product Name at Your E-commerce Store. High quality, affordable, and fast shipping. Limited stock available!" />
                 <meta name="keywords" content="Product Name, online shopping, buy product, best price, product features, fast shipping" />

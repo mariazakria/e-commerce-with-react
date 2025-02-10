@@ -27,7 +27,37 @@ export default function Categories() {
         <>
             <Helmet>
                 <title>Categories - ShopNow Store</title>
-                <meta name="description" content="Browse all product categories in our store" />
+                <meta 
+                    name="description" 
+                    content="Explore our wide range of product categories at ShopNow Store. From electronics to fashion, find everything you need in our organized shopping categories."
+                />
+                <meta name="author" content="Maria Zakaria" />
+                <meta name="robots" content="index, follow" />
+                <meta name="keywords" content="shopping categories, online store categories, electronics, fashion, home goods, accessories" />
+                
+                <meta property="og:title" content="Shop by Categories - ShopNow Store" />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content={window.location.href} />
+                <meta property="og:site_name" content="ShopNow Store" />
+                <meta property="og:locale" content="en_US" />
+                <meta 
+                    property="og:description" 
+                    content="Explore our wide range of product categories at ShopNow Store. From electronics to fashion, find everything you need in our organized shopping categories."
+                />
+                <meta property="og:image" content="https://img.freepik.com/free-vector/ecommerce-web-page-concept-illustration_114360-8204.jpg?uid=R140459377&ga=GA1.1.1165056533.1738031764&semt=ais_hybrid" />
+                <meta property="og:image:alt" content="ShopNow Store Categories" />
+                
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Shop by Categories - ShopNow Store" />
+                <meta 
+                    name="twitter:description" 
+                    content="Explore our wide range of product categories at ShopNow Store. From electronics to fashion, find everything you need in our organized shopping categories."
+                />
+                <meta name="twitter:image" content="https://img.freepik.com/free-vector/ecommerce-web-page-concept-illustration_114360-8204.jpg?uid=R140459377&ga=GA1.1.1165056533.1738031764&semt=ais_hybrid" />
+                <meta name="twitter:site" content="@shopnowstore" />
+                <meta name="twitter:creator" content="@mariazakria" />
+                
+                <link rel="canonical" href={window.location.href} />
             </Helmet>
 
             <div className="container mx-auto px-4 py-8">

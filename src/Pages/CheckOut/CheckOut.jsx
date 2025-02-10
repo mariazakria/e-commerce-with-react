@@ -5,6 +5,7 @@ import { UserContext } from "../../Context/User.context";
 import { data, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { Helmet } from 'react-helmet';
 
 export default function CheckOut() {
     const{token} = useContext(UserContext)
@@ -89,6 +90,40 @@ export default function CheckOut() {
 //   };
 
 return (
+    <>
+        <Helmet>
+            <title>Secure Checkout - ShopNow Store</title>
+            <meta 
+                name="description" 
+                content="Complete your purchase securely at ShopNow Store. Fast checkout process with multiple payment options."
+            />
+            <meta name="author" content="Maria Zakaria" />
+            <meta name="robots" content="noindex, nofollow" />
+            <meta name="keywords" content="checkout, secure payment, shipping, delivery, ShopNow Store" />
+            
+            <meta property="og:title" content="Secure Checkout - ShopNow Store" />
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content={window.location.href} />
+            <meta property="og:site_name" content="ShopNow Store" />
+            <meta property="og:locale" content="en_US" />
+            <meta 
+                property="og:description" 
+                content="Complete your purchase securely at ShopNow Store. Fast checkout process with multiple payment options."
+            />
+            <meta property="og:image" content="https://img.freepik.com/free-vector/secure-payment-concept-illustration_114360-5145.jpg?uid=R140459377&ga=GA1.1.1165056533.1738031764&semt=ais_hybrid" />
+            <meta property="og:image:alt" content="Secure Checkout at ShopNow Store" />
+            
+            <meta name="twitter:card" content="summary" />
+            <meta name="twitter:title" content="Secure Checkout - ShopNow Store" />
+            <meta 
+                name="twitter:description" 
+                content="Complete your purchase securely at ShopNow Store. Fast checkout process with multiple payment options."
+            />
+            <meta name="twitter:image" content="https://img.freepik.com/free-vector/secure-payment-concept-illustration_114360-5145.jpg?uid=R140459377&ga=GA1.1.1165056533.1738031764&semt=ais_hybrid" />
+            <meta name="twitter:site" content="@shopnowstore" />
+            <meta name="twitter:creator" content="@mariazakria" />
+        </Helmet>
+
     <div className="  py-12">
        <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row gap-8">
@@ -226,5 +261,7 @@ return (
           </div>
        </div>
     </div>
+    </>
+
     );
 }

@@ -20,8 +20,8 @@ export default function WishlistProvider({ children }) {
             const { data } = await axios.get('https://ecommerce.routemisr.com/api/v1/wishlist', {
                 headers: { token }
             });
-            console.log('Wishlist Data:', data.data); // Log the response to check the structure
-            setWishlistItems(data.data || []); // Ensure the data is set correctly
+            console.log('Wishlist Data:', data.data); 
+            setWishlistItems(data.data || []); 
         } catch (error) {
             console.error('Error getting wishlist:', error.response?.data || error.message);
         } finally {

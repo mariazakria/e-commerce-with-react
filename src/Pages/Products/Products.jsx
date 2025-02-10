@@ -74,7 +74,6 @@ export default function Products() {
 
     useEffect(() => {
         getProducts();
-        // Update URL with current filters
         setSearchParams(filters);
     }, [filters]);
 
@@ -97,7 +96,38 @@ export default function Products() {
     return (
         <>
             <Helmet>
-                <title>Products - ShopNow Store</title>
+                <title>Shop Products - ShopNow Store</title>
+                <meta
+                    name="description"
+                    content="Browse our wide selection of products at ShopNow Store. Find great deals on electronics, fashion, home goods and more. Filter by price, brand, and category."
+                />
+                <meta name="robots" content="index, follow" />
+                <meta name="keywords" content="online shopping, electronics, fashion, home goods, ShopNow Store" />
+                <meta name="author" content="Maria Zakaria" />
+                
+                <meta property="og:title" content="Shop Products - ShopNow Store" />
+                <meta 
+                    property="og:description" 
+                    content="Browse our wide selection of products at ShopNow Store. Find great deals on electronics, fashion, home goods and more."
+                />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content={window.location.href} />
+                <meta property="og:image" content="https://img.freepik.com/free-vector/shopping-online_24877-49183.jpg?uid=R140459377&ga=GA1.1.1165056533.1738031764&semt=ais_hybrid" />
+                <meta property="og:image:alt" content="ShopNow Store Products" />
+                <meta property="og:site_name" content="ShopNow Store" />
+                <meta property="og:locale" content="en_US" />
+                
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Shop Products - ShopNow Store" />
+                <meta 
+                    name="twitter:description" 
+                    content="Browse our wide selection of products at ShopNow Store. Find great deals on electronics, fashion, home goods and more."
+                />
+                <meta name="twitter:image" content="https://img.freepik.com/free-vector/shopping-online_24877-49183.jpg?uid=R140459377&ga=GA1.1.1165056533.1738031764&semt=ais_hybrid" />
+                <meta name="twitter:site" content="@shopnowstore" />
+                <meta name="twitter:creator" content="@mariazakria" />
+
+                <link rel="canonical" href={window.location.href} />
             </Helmet>
 
             <div className="container mx-auto px-4 py-8">
