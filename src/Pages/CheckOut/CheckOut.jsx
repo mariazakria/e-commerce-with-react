@@ -54,7 +54,7 @@ export default function CheckOut() {
         const {data} = await axios.request(options)
         if(data.status == "success"){
             toast.success("Your Order Has been created")
-            setTimeout(()=>{navigate("/alloreders")},2000)
+            setTimeout(()=>{navigate("/allorders")},2000)
         }
        }catch(error){
         console.log(error);

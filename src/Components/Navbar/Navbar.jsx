@@ -60,7 +60,7 @@ useEffect(()=>{
           <li>
              <NavLink className={({isActive}) => {
                 return `relative before:absolute before:w-0 before:h-0.5 before:bg-primary-500 before:-bottom-1 before:left-0 hover:before:w-full before:transition-[width] before:duration-300 ${isActive ? "before:!w-full font-semibold" : ""}`
-                }}  to="/orders">Orders
+                }}  to="/allorders">Orders
              </NavLink>
           </li>
        </ul>
