@@ -7,7 +7,7 @@ export default function Notfound() {
     <>
       <div className="h-96 min-h-full flex justify-center items-center flex-col">
         <img className="w-96" src={NotfoundImage} alt="Not found page" />
-        <h2 className="mt-4 text-2xl text-gray-600">
+        <h2 className="mt-4 text-2xl text-center text-gray-600">
           Oops! The page you're looking for doesn't exist.{' '}
           <Link className="text-primary-600 hover:text-primary-600 hover:transition-colors duration-300" to="/">
             Back To Home

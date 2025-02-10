@@ -14,6 +14,8 @@ import CartEmpty from './Components/CartEmpty/CartEmpty'
 import ProductDetails from './Pages/ProductDetails/ProductDetails'
 import CheckOut from './Pages/CheckOut/CheckOut'
 import Orders from './Pages/Orders/Orders'
+import Brands from './Pages/Brands/Brands'
+import Products from './Pages/Products/Products'
 export default function App() {
   const routes = createBrowserRouter([
     {
@@ -37,6 +39,14 @@ export default function App() {
         {
           path: 'allorders',
           element: <Orders />
+        },
+        {
+          path: 'brands',
+          element: <Brands />
+        },
+        {
+          path: 'products',
+          element: <Products />
         },
         {
           path:"cart",
