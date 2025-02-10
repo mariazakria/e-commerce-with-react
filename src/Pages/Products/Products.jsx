@@ -273,16 +273,16 @@ export default function Products() {
                                 // Show all pages if total pages is 7 or less
                                 return (
                                     <button
-                                        key={pageNumber}
-                                        onClick={() => setFilters(prev => ({ ...prev, page: pageNumber }))}
-                                        className={`px-3 py-1 rounded-md ${
-                                            isCurrentPage 
-                                            ? 'bg-blue-500 text-white' 
-                                            : 'border border-gray-300 hover:bg-gray-50'
-                                        }`}
-                                    >
-                                        {pageNumber}
-                                    </button>
+                                    key={pageNumber}
+                                    onClick={() => setFilters(prev => ({ ...prev, page: pageNumber }))}
+                                    className={`px-3 py-1 rounded-md ${
+                                        isCurrentPage 
+                                        ? 'bg-red-500 text-white' 
+                                        : 'border border-gray-300 hover:bg-gray-50'
+                                    }`}
+                                >
+                                    {pageNumber}
+                                </button>
                                 );
                             })}
 

@@ -16,6 +16,7 @@ import CheckOut from './Pages/CheckOut/CheckOut'
 import Orders from './Pages/Orders/Orders'
 import Brands from './Pages/Brands/Brands'
 import Products from './Pages/Products/Products'
+import Categories from './Pages/Categories/Categories'
 export default function App() {
   const routes = createBrowserRouter([
     {
@@ -47,6 +48,10 @@ export default function App() {
         {
           path: 'products',
           element: <Products />
+        },
+        {
+          path: 'categories',
+          element: <Categories />
         },
         {
           path:"cart",
