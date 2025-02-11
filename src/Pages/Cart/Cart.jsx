@@ -5,15 +5,13 @@ import CartItem from "../../Components/CartItem/CartItem";
 import cartEmpty from "../../assets/images/shopping-cart-logo-shopping-basket-design-vector-illustration-b.png"
 import CartEmpty from "../../Components/CartEmpty/CartEmpty";
 import { Link } from "react-router-dom";
-import { Helmet } from 'react-helmet';
-
 export default function Cart() {
    const {getProductFromCart, cart,ClearCart} =  useContext(cartContext)
    useEffect(()=>{getProductFromCart();},[])
   return (
    <>
             <Helmet>
-            <title>Shopping Cart - ShopNow Store</title>
+            <title>Your Shopping Cart - ShopNow Store</title>
             <meta
                name="description"
                content="View and manage the items in your shopping cart at My Ecommerce Site. Secure checkout and fast delivery."
@@ -21,7 +19,7 @@ export default function Cart() {
             <meta name="robots" content="index, follow" />
             <meta
                property="og:title"
-               content="Shopping Cart - ShopNow Store"
+               content="Your Shopping Cart - My Ecommerce Site"
             />
             <meta
                property="og:description"

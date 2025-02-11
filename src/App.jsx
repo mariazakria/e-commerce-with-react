@@ -9,7 +9,6 @@ import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute'
 import GuestRoute from './Components/GuestRoute/GuestRoute'
 import UserProvider from './Context/User.context'
 import CartProvider from './Context/Cart.context'
-import WishlistProvider from './Context/Wishlist.context'
 import Cart from './Pages/Cart/Cart'
 import CartEmpty from './Components/CartEmpty/CartEmpty'
 import ProductDetails from './Pages/ProductDetails/ProductDetails'
@@ -18,7 +17,6 @@ import Orders from './Pages/Orders/Orders'
 import Brands from './Pages/Brands/Brands'
 import Products from './Pages/Products/Products'
 import Categories from './Pages/Categories/Categories'
-import Favorite from './Pages/Favorite/Favorite'
 export default function App() {
   const routes = createBrowserRouter([
     {
@@ -70,10 +68,6 @@ export default function App() {
         {
           path:"checkout",
           element:<CheckOut/>
-        },
-        {
-          path:"wishlist",
-          element:<Favorite/>
         }
       ],
     },
@@ -83,11 +77,11 @@ export default function App() {
       element: <GuestRoute><Layout/></GuestRoute>,
       children:[
         {
-          path: 'signup',
+          path: '/signup',
           element: <Signup />
         },
         {
-          path: 'login',
+          path: '/login',
           element: <Login />
         }
       ]
@@ -100,12 +94,10 @@ export default function App() {
     <>
   
     <UserProvider>
-    <WishlistProvider>
     <CartProvider>
     <RouterProvider router = {routes}/>
 
       </CartProvider>
-    </WishlistProvider>
 
     </UserProvider>
     <Toaster />
