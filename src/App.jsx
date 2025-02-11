@@ -83,11 +83,11 @@ export default function App() {
       element: <GuestRoute><Layout/></GuestRoute>,
       children:[
         {
-          path: '/signup',
+          path: 'signup',
           element: <Signup />
         },
         {
-          path: '/login',
+          path: 'login',
           element: <Login />
         }
       ]

@@ -7,36 +7,27 @@ export const wishlistContext = createContext();
 
 export default function WishlistProvider({ children }) {
     const [wishlistItems, setWishlistItems] = useState([]);
-    const [loading, setLoading] = useState(true);
     const { token } = useContext(UserContext);
 
     async function getLoggedUserWishlist() {
+       const loading =  toast.loading("Just a moment, adding to your wishlist...")
         try {
-            if (!token) {
-                setLoading(false);
-                return;
-            }
-
             const { data } = await axios.get('https://ecommerce.routemisr.com/api/v1/wishlist', {
                 headers: { token }
             });
             console.log('Wishlist Data:', data.data); 
-            setWishlistItems(data.data || []); 
+            setWishlistItems(data.data); 
         } catch (error) {
             console.error('Error getting wishlist:', error.response?.data || error.message);
         } finally {
-            setLoading(false);
+            toast.dismiss(loading)
         }
     }
 
     async function addToWishlist(productId) {
         const loading = toast.loading('Waiting to add product to wishlist');
         try {
-            if (!token) {
-                toast.error('Please login to add items to wishlist');
-                return;
-            }
-
+        
             const { data } = await axios.post(
                 'https://ecommerce.routemisr.com/api/v1/wishlist',
                 { productId },
@@ -59,11 +50,6 @@ export default function WishlistProvider({ children }) {
 
     async function removeFromWishlist(productId) {
         try {
-            if (!token) {
-                toast.error('Please login to manage wishlist');
-                return;
-            }
-
             const { data } = await axios.delete(
                 `https://ecommerce.routemisr.com/api/v1/wishlist/${productId}`,
                 { headers: { token } }
@@ -83,12 +69,9 @@ export default function WishlistProvider({ children }) {
     }
 
     useEffect(() => {
-        if (token) {
             getLoggedUserWishlist();
-        } else {
-            setWishlistItems([]); // Clear wishlist when logged out
         }
-    }, [token]);
+    },[]);
 
     return (
         <wishlistContext.Provider
