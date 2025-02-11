@@ -35,13 +35,11 @@ export default function WishlistProvider({ children }) {
             
             if (data.status === 'success') {
                 setWishlistItems(data.data);
-                toast.success('Product added to wishlist');
             } else {
                 throw new Error(data.message || 'Failed to add product');
             }
         } catch (error) {
             console.error('Error adding to wishlist:', error.response?.data || error.message);
-            toast.error(error.response?.data?.message || 'Failed to add product to wishlist');
         } finally {
             toast.dismiss(loading);
         }

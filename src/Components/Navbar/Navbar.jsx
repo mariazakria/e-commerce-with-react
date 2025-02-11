@@ -3,16 +3,18 @@ import { Link, NavLink } from 'react-router-dom';
 import styles from './Navbar.module.css'; 
 import { UserContext } from '../../Context/User.context';
 import { cartContext } from '../../Context/Cart.context';
+import { wishlistContext } from '../../Context/Wishlist.context';
 
 export default function Navbar() {
    let {token , logout} = useContext(UserContext)
-   const{cart,getProductFromCart} = useContext(cartContext)
+   const{cart, getProductFromCart} = useContext(cartContext)
+   const wishlistCtx = useContext(wishlistContext)
    const [isMenuOpen, setIsMenuOpen] = useState(false);
-   // elmoshkla : an f kol mra hygeb haga 8er elcart msh hygebli el3dd
-   //el7l :  kol mra y3ml render ysh8lha w y3ml edit l number elcart
-useEffect(()=>{
-   getProductFromCart()
-},[])
+
+   useEffect(()=>{
+      getProductFromCart()
+   },[])
+
   return (
     <nav className='bg-slate-100 shadow px-2  sm:px-0 py-3 fixed top-0 left-0 right-0 z-50'>
     <div className="container flex items-center align-center gap-12">
@@ -27,7 +29,6 @@ useEffect(()=>{
        </div>
       {token && (<>
         
-
           <ul 
             className={`flex gap-5 items-center ${isMenuOpen ? 'block' : 'hidden'} flex-col absolute top-14 left-0 bg-slate-100 w-full p-4 shadow-lg ${isMenuOpen ? 'z-10' : ''} lg:flex lg:static lg:flex-row lg:gap-5 lg:w-auto lg:p-0 lg:shadow-none`}
           >
@@ -64,14 +65,23 @@ useEffect(()=>{
              </NavLink>
           </li>
        </ul>
-       <Link to="/cart" className="relative cart ml-auto cursor-pointer">
-          <i className="fa-solid fa-cart-plus text-lg"></i>
-          <div className="absolute flex justify-center items-center right-0 top-0 cart-counter translate-x-1/2 -translate-y-1/2 h-5 w-5 bg-primary-600 rounded-full text-white">
-             {cart == null ? <i className="fa-solid fa-spinner text-sm fa-spin" aria-hidden="true"></i> : 
-              <span className='text-sm'>{cart.numOfCartItems}</span>}
-            
-          </div>
-       </Link>
+       <div className="flex items-center gap-4 ml-auto">
+          <Link to="/wishlist" className="relative wishlist cursor-pointer">
+             <i className="fa-solid fa-heart text-xl"></i>
+             <div className="absolute flex justify-center items-center right-0 top-0 translate-x-1/2 -translate-y-1/2 h-5 w-5 bg-primary-600 rounded-full text-white">
+                <span className='text-sm'>
+                    {wishlistCtx?.wishlistItems?.length || 0}
+                </span>
+             </div>
+          </Link>
+          <Link to="/cart" className="relative cart cursor-pointer">
+             <i className="fa-solid fa-cart-plus text-lg"></i>
+             <div className="absolute flex justify-center items-center right-0 top-0 cart-counter translate-x-1/2 -translate-y-1/2 h-5 w-5 bg-primary-600 rounded-full text-white">
+                {cart == null ? <i className="fa-solid fa-spinner text-sm fa-spin" aria-hidden="true"></i> : 
+                 <span className='text-sm'>{cart.numOfCartItems}</span>}
+             </div>
+          </Link>
+       </div>
       </>)}
       {token && (
   <>
@@ -129,8 +139,7 @@ useEffect(()=>{
          </>}
         {token && <>
          <button 
-                        className="relative lg:hidden flex items-center text-primary-500"
-
+            className="relative lg:hidden flex items-center text-primary-500"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <i className="fa-solid fa-bars text-2xl"></i> 
