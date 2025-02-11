@@ -8,12 +8,14 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Card from '../../Components/Card/Card';
+import useConection from '../../Hook/UseConection/UseConection';
 
 export default function ProductDetails() {
   const { addProductToCart } = useContext(cartContext);
   const [productDetails, setProductDetails] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState(null);
-  const { id } = useParams();  // الحصول على الـ id من الرابط
+  const Online = useConection()
+  const { id } = useParams();  
   console.log(id);
 
   async function getProductDetails() {
@@ -84,13 +86,18 @@ export default function ProductDetails() {
                   <span>{productDetails.ratingsAverage}</span>
                 </div>
               </div>
+              {Online ? (
+                <button onClick={() => {
+                  addProductToCart({ productId: id })
+                }}
+                  className="btn uppercase w-full bg-primary-500 hover:bg-primary-600 text-white font-bold">
+                  Add To Cart
+                </button>
+              ) : (
+                <span className="text-red-500">You are offline, can't add to cart</span>
+              )}
 
-              <button onClick={() => {
-                addProductToCart({ productId: id })
-              }}
-                className="btn uppercase w-full bg-primary-500 hover:bg-primary-600 text-white font-bold">
-                Add To Cart
-              </button>
+              
             </div>
           </section>
           <section className="py-8 px-3 sm:px-0">

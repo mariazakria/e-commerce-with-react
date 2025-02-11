@@ -5,37 +5,66 @@ import CartItem from "../../Components/CartItem/CartItem";
 import cartEmpty from "../../assets/images/shopping-cart-logo-shopping-basket-design-vector-illustration-b.png"
 import CartEmpty from "../../Components/CartEmpty/CartEmpty";
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet";
+
 export default function Cart() {
    const {getProductFromCart, cart,ClearCart} =  useContext(cartContext)
+   
+   useEffect(() => {
+     // Set document title and meta tags
+     document.title = "Your Shopping Cart - ShopNow Store";
+     
+     // Create or update meta description
+     let metaDescription = document.querySelector('meta[name="description"]');
+     if (!metaDescription) {
+       metaDescription = document.createElement('meta');
+       metaDescription.name = "description";
+       document.head.appendChild(metaDescription);
+     }
+     metaDescription.content = "View and manage the items in your shopping cart at My Ecommerce Site. Secure checkout and fast delivery.";
+
+     // Create or update Open Graph tags
+     let ogTitle = document.querySelector('meta[property="og:title"]');
+     if (!ogTitle) {
+       ogTitle = document.createElement('meta');
+       ogTitle.setAttribute('property', 'og:title');
+       document.head.appendChild(ogTitle);
+     }
+     ogTitle.content = "Your Shopping Cart - My Ecommerce Site";
+
+     let ogDescription = document.querySelector('meta[property="og:description"]');
+     if (!ogDescription) {
+       ogDescription = document.createElement('meta');
+       ogDescription.setAttribute('property', 'og:description');
+       document.head.appendChild(ogDescription);
+     }
+     ogDescription.content = "View and manage the items in your shopping cart at My Ecommerce Site. Secure checkout and fast delivery.";
+
+     let ogImage = document.querySelector('meta[property="og:image"]');
+     if (!ogImage) {
+       ogImage = document.createElement('meta');
+       ogImage.setAttribute('property', 'og:image');
+       document.head.appendChild(ogImage);
+     }
+     ogImage.content = cartEmpty;
+
+     let ogUrl = document.querySelector('meta[property="og:url"]');
+     if (!ogUrl) {
+       ogUrl = document.createElement('meta');
+       ogUrl.setAttribute('property', 'og:url');
+       document.head.appendChild(ogUrl);
+     }
+     ogUrl.content = window.location.href;
+
+     // Cleanup function to remove added meta tags if needed
+     return () => {
+       document.title = "ShopNow";
+     };
+   }, []);
+
    useEffect(()=>{getProductFromCart();},[])
+
   return (
    <>
-            <Helmet>
-            <title>Shopping Cart - ShopNow Store</title>
-            <meta
-               name="description"
-               content="View and manage the items in your shopping cart at My Ecommerce Site. Secure checkout and fast delivery."
-            />
-            <meta name="robots" content="index, follow" />
-            <meta
-               property="og:title"
-               content="Shopping Cart - ShopNow Store"
-            />
-            <meta
-               property="og:description"
-               content="View and manage the items in your shopping cart at My Ecommerce Site. Secure checkout and fast delivery."
-            />
-            <meta
-               property="og:image"
-               content={cartEmpty} 
-            />
-            <meta
-               property="og:url"
-               content={window.location.href}
-            />
-         </Helmet>
-
    {cart == null ? <Loading/> :
    <section>
    <div className="flex space-x-4 items-center">
@@ -60,12 +89,8 @@ export default function Cart() {
           <i className="fa-solid fa-trash mr-2"></i>
           Clear Cart
          </button>
-        
        </div>
-   
       </div>
-
-    
    </div>
    <Link 
   to="/checkout" 

@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Helmet } from 'react-helmet';
 import Loading from '../../Components/Loading/Loading';
 import { Link, useSearchParams } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import useConection from '../../Hook/UseConection/UseConection';
 
 export default function Products() {
     const [products, setProducts] = useState([]);
@@ -11,6 +13,7 @@ export default function Products() {
     const [loading, setLoading] = useState(true);
     const [searchParams, setSearchParams] = useSearchParams();
     const [totalPages, setTotalPages] = useState(1);
+    const Online = useConection();
     const [filters, setFilters] = useState({
         keyword: searchParams.get('keyword') || '',
         sort: searchParams.get('sort') || '',
@@ -22,6 +25,12 @@ export default function Products() {
     });
 
     async function getProducts() {
+        if (!Online) {
+            toast.error('No internet connection');
+            setLoading(false);
+            return;
+        }
+
         setLoading(true);
         try {
             // Build query parameters
@@ -43,40 +52,62 @@ export default function Products() {
             setTotalPages(total);
         } catch (error) {
             console.log(error);
+            toast.error('Failed to load products');
         } finally {
             setLoading(false);
         }
     }
 
     async function getBrands() {
+        if (!Online) {
+            toast.error('No internet connection');
+            return;
+        }
+
         try {
             const { data } = await axios.get('https://ecommerce.routemisr.com/api/v1/brands');
             setBrands(data.data);
         } catch (error) {
             console.log(error);
+            toast.error('Failed to load brands');
         }
     }
 
     async function getCategories() {
+        if (!Online) {
+            toast.error('No internet connection');
+            return;
+        }
+
         try {
             const { data } = await axios.get('https://ecommerce.routemisr.com/api/v1/categories');
             setCategories(data.data);
         } catch (error) {
             console.log(error);
+            toast.error('Failed to load categories');
         }
     }
 
     useEffect(() => {
-        getBrands();
-        getCategories();
-    }, []);
+        if (Online) {
+            getBrands();
+            getCategories();
+        }
+    }, [Online]);
 
     useEffect(() => {
-        getProducts();
-        setSearchParams(filters);
-    }, [filters]);
+        if (Online) {
+            getProducts();
+            setSearchParams(filters);
+        }
+    }, [filters, Online]);
 
     const handleFilterChange = (e) => {
+        if (!Online) {
+            toast.error('No internet connection');
+            return;
+        }
+
         const { name, value } = e.target;
         setFilters(prev => ({
             ...prev,
@@ -94,6 +125,12 @@ export default function Products() {
 
     return (
         <>
+            {!Online && (
+                <div className="fixed top-0 left-0 w-full bg-red-500 text-white text-center p-2 z-50">
+                    No Internet Connection
+                </div>
+            )}
+
             <Helmet>
                 <title>Shop Products - ShopNow Store</title>
                 <meta
@@ -142,14 +179,15 @@ export default function Products() {
                                 value={filters.keyword}
                                 onChange={handleFilterChange}
                                 placeholder="Search products..."
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none"
+                                disabled={!Online}
+                                className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none ${!Online ? 'bg-gray-200 cursor-not-allowed' : ''}`}
                             />
                         </div>
 
                         {/* Price Range */}
                         <div className="flex gap-2">
                             <div>
-                                <label  className="block text-sm font-medium text-gray-700 mb-1">Min Price</label>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Min Price</label>
                                 <input
                                     type="number"
                                     name="priceFrom"
@@ -157,7 +195,8 @@ export default function Products() {
                                     onChange={handleFilterChange}
                                     placeholder="From"
                                     min="1"
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none"
+                                    disabled={!Online}
+                                    className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none ${!Online ? 'bg-gray-200 cursor-not-allowed' : ''}`}
                                 />
                             </div>
                             <div>
@@ -169,7 +208,8 @@ export default function Products() {
                                     onChange={handleFilterChange}
                                     placeholder="To"
                                     min="1"
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none"
+                                    disabled={!Online}
+                                    className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none ${!Online ? 'bg-gray-200 cursor-not-allowed' : ''}`}
                                 />
                             </div>
                         </div>
@@ -181,7 +221,8 @@ export default function Products() {
                                 name="sort"
                                 value={filters.sort}
                                 onChange={handleFilterChange}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none"
+                                disabled={!Online}
+                                className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none ${!Online ? 'bg-gray-200 cursor-not-allowed' : ''}`}
                             >
                                 {sortOptions.map(option => (
                                     <option key={option.value} value={option.value}>
@@ -198,7 +239,8 @@ export default function Products() {
                                 name="brand"
                                 value={filters.brand}
                                 onChange={handleFilterChange}
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none"
+                                disabled={!Online}
+                                className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none ${!Online ? 'bg-gray-200 cursor-not-allowed' : ''}`}
                             >
                                 <option value="">All Brands</option>
                                 {brands.map(brand => (
@@ -211,119 +253,92 @@ export default function Products() {
                     </div>
                 </div>
 
-                {/* Products Grid */}
+                {/* Products Section */}
                 {loading ? (
                     <Loading />
+                ) : !Online ? (
+                    <div className="text-center py-12">
+                        <div className="text-5xl mb-4">
+                            <i className="fas fa-wifi text-gray-300"></i>
+                        </div>
+                        <h2 className="text-xl font-medium text-gray-600 mb-4">No Internet Connection</h2>
+                        <p className="text-gray-500 mb-6">Please check your network and try again</p>
+                    </div>
+                ) : products.length === 0 ? (
+                    <div className="text-center py-12">
+                        <div className="text-5xl mb-4">
+                            <i className="fas fa-box-open text-gray-300"></i>
+                        </div>
+                        <h2 className="text-xl font-medium text-gray-600 mb-4">No Products Found</h2>
+                        <p className="text-gray-500 mb-6">Try adjusting your search or filter</p>
+                    </div>
                 ) : (
-                    <>
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                            {products.map((product) => (
-                                <div key={product._id} className="bg-white rounded-lg shadow-sm overflow-hidden">
-                                    <div className="aspect-square overflow-hidden">
-                                        <img
-                                            src={product.imageCover}
-                                            alt={product.title}
-                                            className="w-full h-full object-contain hover:scale-110 transition-transform duration-300"
-                                        />
-                                    </div>
-                                    <div className="p-4">
-                                        <h3 className="text-sm font-medium text-gray-800 mb-2 line-clamp-2"><Link to={`/product/${product.id}`}>{product.title}</Link></h3>
-                                        <p className="text-primary-600 font-semibold">{product.price} L.E</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        {products.map((product) => (
+                            <div key={product._id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                                <Link 
+                                    to={`/product/${product._id}`} 
+                                    className={`block relative ${!Online ? 'pointer-events-none' : ''}`}
+                                    onClick={(e) => {
+                                        if (!Online) {
+                                            e.preventDefault();
+                                            toast.error('No internet connection');
+                                        }
+                                    }}
+                                >
+                                    <img 
+                                        src={product.imageCover} 
+                                        alt={product.title} 
+                                        className="w-full h-48 object-cover"
+                                    />
+                                </Link>
+                                <div className="p-4">
+                                    <h3 className="text-lg font-semibold mb-2">
+                                        <Link 
+                                            to={`/product/${product._id}`}
+                                            className={!Online ? 'text-gray-400' : ''}
+                                        >
+                                            {product.title}
+                                        </Link>
+                                    </h3>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-primary-600 font-bold">{product.price} L.E</span>
+                                        <div className="flex items-center">
+                                            <span className="mr-1">{product.ratingsAverage}</span>
+                                            <i className="fas fa-star text-yellow-400"></i>
+                                        </div>
                                     </div>
                                 </div>
-                            ))}
-                        </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
 
-                        {/* Pagination */}
-                        <div className="flex justify-center items-center mt-8 gap-2">
-                            <button
-                                onClick={() => setFilters(prev => ({ ...prev, page: prev.page - 1 }))}
-                                disabled={filters.page === 1}
-                                className="px-3 py-2 border border-gray-300 rounded-md disabled:opacity-50 hover:bg-gray-50"
-                            >
-                                <i className="fas fa-chevron-left"></i>
-                            </button>
-
-                            {[...Array(totalPages)].map((_, index) => {
-                                const pageNumber = index + 1;
-                                const isCurrentPage = pageNumber === filters.page;
-                                
-                                // Show ellipsis for large page numbers
-                                if (totalPages > 7) {
-                                    // Always show first and last page
-                                    if (pageNumber === 1 || pageNumber === totalPages) {
-                                        return (
-                                            <button
-                                                key={pageNumber}
-                                                onClick={() => setFilters(prev => ({ ...prev, page: pageNumber }))}
-                                                className={`px-3 py-1 rounded-md ${
-                                                    isCurrentPage 
-                                                    ? 'bg-blue-500 text-white' 
-                                                    : 'border border-gray-300 hover:bg-gray-50'
-                                                }`}
-                                            >
-                                                {pageNumber}
-                                            </button>
-                                        );
-                                    }
-                                    
-                                    // Show current page and adjacent pages
-                                    if (
-                                        pageNumber === filters.page ||
-                                        pageNumber === filters.page - 1 ||
-                                        pageNumber === filters.page + 1
-                                    ) {
-                                        return (
-                                            <button
-                                                key={pageNumber}
-                                                onClick={() => setFilters(prev => ({ ...prev, page: pageNumber }))}
-                                                className={`px-3 py-1 rounded-md ${
-                                                    isCurrentPage 
-                                                    ? 'bg-blue-500 text-white' 
-                                                    : 'border border-gray-300 hover:bg-gray-50'
-                                                }`}
-                                            >
-                                                {pageNumber}
-                                            </button>
-                                        );
-                                    }
-                                    
-                                    // Show ellipsis
-                                    if (
-                                        pageNumber === 2 ||
-                                        pageNumber === totalPages - 1
-                                    ) {
-                                        return <span key={pageNumber} className="px-2">...</span>;
-                                    }
-                                    
-                                    return null;
-                                }
-                                
-                                // Show all pages if total pages is 7 or less
-                                return (
-                                    <button
-                                    key={pageNumber}
-                                    onClick={() => setFilters(prev => ({ ...prev, page: pageNumber }))}
-                                    className={`px-3 py-1 rounded-md ${
-                                        isCurrentPage 
-                                        ? 'bg-red-500 text-white' 
-                                        : 'border border-gray-300 hover:bg-gray-50'
+                {/* Pagination */}
+                {Online && totalPages > 1 && (
+                    <div className="flex justify-center mt-8">
+                        <div className="flex space-x-2">
+                            {[...Array(totalPages)].map((_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => {
+                                        if (!Online) {
+                                            toast.error('No internet connection');
+                                            return;
+                                        }
+                                        setFilters(prev => ({ ...prev, page: index + 1 }));
+                                    }}
+                                    className={`px-4 py-2 rounded-md ${
+                                        filters.page === index + 1 
+                                            ? 'bg-primary-600 text-white' 
+                                            : 'bg-gray-200 text-gray-700'
                                     }`}
                                 >
-                                    {pageNumber}
+                                    {index + 1}
                                 </button>
-                                );
-                            })}
-
-                            <button
-                                onClick={() => setFilters(prev => ({ ...prev, page: prev.page + 1 }))}
-                                disabled={filters.page === totalPages}
-                                className="px-3 py-2 border border-gray-300 rounded-md disabled:opacity-50 hover:bg-gray-50"
-                            >
-                                <i className="fas fa-chevron-right"></i>
-                            </button>
+                            ))}
                         </div>
-                    </>
+                    </div>
                 )}
             </div>
         </>

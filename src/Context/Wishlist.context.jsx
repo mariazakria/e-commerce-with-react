@@ -10,7 +10,6 @@ export default function WishlistProvider({ children }) {
     const { token } = useContext(UserContext);
 
     async function getLoggedUserWishlist() {
-        const loading = toast.loading("Just a moment, adding to your wishlist...");
         try {
             const { data } = await axios.get('https://ecommerce.routemisr.com/api/v1/wishlist', {
                 headers: { token }
@@ -19,11 +18,9 @@ export default function WishlistProvider({ children }) {
             setWishlistItems(data.data); 
         } catch (error) {
             console.error('Error getting wishlist:', error.response?.data || error.message);
-        } finally {
-            toast.dismiss(loading);
         }
     }
-
+    
     async function addToWishlist(productId) {
         const loading = toast.loading('Waiting to add product to wishlist');
         try {
@@ -44,6 +41,7 @@ export default function WishlistProvider({ children }) {
             toast.dismiss(loading);
         }
     }
+    
 
     async function removeFromWishlist(productId) {
         try {
