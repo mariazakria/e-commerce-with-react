@@ -15,6 +15,7 @@ npm install react-helmet ==> meta tags
 npm i swiper aw npm install react-slick slick-carousel
 
 npm i jwt-decode => afok tshfer eltoken
+npm i react-detect-offline 
 
 
 Features

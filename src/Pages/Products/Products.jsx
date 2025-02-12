@@ -33,7 +33,6 @@ export default function Products() {
 
         setLoading(true);
         try {
-            // Build query parameters
             const params = new URLSearchParams();
             if (filters.keyword) params.append('keyword', filters.keyword);
             if (filters.sort) params.append('sort', filters.sort);
@@ -47,7 +46,6 @@ export default function Products() {
                 `https://ecommerce.routemisr.com/api/v1/products?${params.toString()}`
             );
             setProducts(data.data);
-            // Calculate total pages based on metadata from API
             const total = Math.ceil(data.results / filters.limit);
             setTotalPages(total);
         } catch (error) {
@@ -112,7 +110,7 @@ export default function Products() {
         setFilters(prev => ({
             ...prev,
             [name]: value,
-            page: 1 
+            page: 1
         }));
     };
 
@@ -162,13 +160,12 @@ export default function Products() {
                 <meta name="twitter:image" content="https://img.freepik.com/free-vector/shopping-online_24877-49183.jpg?uid=R140459377&ga=GA1.1.1165056533.1738031764&semt=ais_hybrid" />
                 <meta name="twitter:site" content="@shopnowstore" />
                 <meta name="twitter:creator" content="@mariazakria" />
-
                 <link rel="canonical" href={window.location.href} />
             </Helmet>
 
             <div className="container mx-auto px-4 py-8">
                 {/* Filters Section */}
-                <div className=" rounded-lg p-4 mb-8">
+                <div className="rounded-lg p-4 mb-8 bg-gray-50 border border-gray-100 shadow-sm">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         {/* Search */}
                         <div>
@@ -262,7 +259,7 @@ export default function Products() {
                             <i className="fas fa-wifi text-gray-300"></i>
                         </div>
                         <h2 className="text-xl font-medium text-gray-600 mb-4">No Internet Connection</h2>
-                        <p className="text-gray-500 mb-6">Please check your network and try again</p>
+                        <p className="text-gray-500 mb-6">Please check your connection and try again.</p>
                     </div>
                 ) : products.length === 0 ? (
                     <div className="text-center py-12">
@@ -270,75 +267,87 @@ export default function Products() {
                             <i className="fas fa-box-open text-gray-300"></i>
                         </div>
                         <h2 className="text-xl font-medium text-gray-600 mb-4">No Products Found</h2>
-                        <p className="text-gray-500 mb-6">Try adjusting your search or filter</p>
+                        <p className="text-gray-500 mb-6">Try adjusting your search or filters</p>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {products.map((product) => (
-                            <div key={product._id} className="bg-white rounded-lg shadow-md overflow-hidden">
-                                <Link 
-                                    to={`/product/${product._id}`} 
-                                    className={`block relative ${!Online ? 'pointer-events-none' : ''}`}
-                                    onClick={(e) => {
-                                        if (!Online) {
-                                            e.preventDefault();
-                                            toast.error('No internet connection');
-                                        }
-                                    }}
+                    <>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+                            {products.map(product => (
+                                <div 
+                                    key={product._id} 
+                                    className="bg-white group rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border border-transparent hover:border-primary-500"
                                 >
-                                    <img 
-                                        src={product.imageCover} 
-                                        alt={product.title} 
-                                        className="w-full h-48 object-cover"
-                                    />
-                                </Link>
-                                <div className="p-4">
-                                    <h3 className="text-lg font-semibold mb-2">
-                                        <Link 
-                                            to={`/product/${product._id}`}
-                                            className={!Online ? 'text-gray-400' : ''}
-                                        >
+                                    <Link 
+                                        to={`/product/${product._id}`} 
+                                        className="block relative"
+                                    >
+                                        <div className="relative h-48 bg-gray-100 flex items-center justify-center">
+                                            <img
+                                                src={product.imageCover}
+                                                alt={product.title}
+                                                className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500 ease-in-out"
+                                            />
+                                            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                <span className="bg-primary-500 text-white px-2 py-1 rounded-full text-xs">
+                                                    View Details
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                    
+                                    <div className="p-4">
+                                        <h3 className="text-sm font-medium text-gray-800 mb-1 line-clamp-2 group-hover:text-primary-600 transition-colors">
                                             {product.title}
-                                        </Link>
-                                    </h3>
-                                    <div className="flex justify-between items-center">
-                                        <span className="text-primary-600 font-bold">{product.price} L.E</span>
-                                        <div className="flex items-center">
-                                            <span className="mr-1">{product.ratingsAverage}</span>
-                                            <i className="fas fa-star text-yellow-400"></i>
+                                        </h3>
+                                        <div className="flex items-center justify-between">
+                                            <p className="text-lg font-bold text-primary-600">
+                                                {product.price.toLocaleString()} L.E
+                                            </p>
+                                            <div className="flex items-center text-yellow-500">
+                                                <i className="fas fa-star mr-1"></i>
+                                                <span className="text-sm text-gray-600">
+                                                    {product.ratingsAverage.toFixed(1)}
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
+                            ))}
+                        </div>
 
-                {/* Pagination */}
-                {Online && totalPages > 1 && (
-                    <div className="flex justify-center mt-8">
-                        <div className="flex space-x-2">
+                        {/* Pagination */}
+                        <div className="flex justify-center items-center mt-10 space-x-2">
+                            <button
+                                disabled={filters.page <= 1}
+                                onClick={() => setFilters(prev => ({ ...prev, page: prev.page - 1 }))}
+                                className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                            >
+                                <i className="fas fa-chevron-left mr-2"></i>Previous
+                            </button>
+                            
                             {[...Array(totalPages)].map((_, index) => (
                                 <button
                                     key={index}
-                                    onClick={() => {
-                                        if (!Online) {
-                                            toast.error('No internet connection');
-                                            return;
-                                        }
-                                        setFilters(prev => ({ ...prev, page: index + 1 }));
-                                    }}
-                                    className={`px-4 py-2 rounded-md ${
+                                    onClick={() => setFilters(prev => ({ ...prev, page: index + 1 }))}
+                                    className={`w-10 h-10 rounded-full text-sm font-medium transition-all ${
                                         filters.page === index + 1 
-                                            ? 'bg-primary-600 text-white' 
-                                            : 'bg-gray-200 text-gray-700'
+                                            ? 'bg-primary-500 text-white' 
+                                            : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-100'
                                     }`}
                                 >
                                     {index + 1}
                                 </button>
                             ))}
+                            
+                            <button
+                                disabled={filters.page >= totalPages}
+                                onClick={() => setFilters(prev => ({ ...prev, page: prev.page + 1 }))}
+                                className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                            >
+                                Next<i className="fas fa-chevron-right ml-2"></i>
+                            </button>
                         </div>
-                    </div>
+                    </>
                 )}
             </div>
         </>
