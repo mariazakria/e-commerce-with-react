@@ -2,28 +2,37 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
 import Loading from '../../Components/Loading/Loading';
+import { useQuery } from '@tanstack/react-query';
 
 export default function Brands() {
-    const [brands, setBrands] = useState([]);
     const [loading, setLoading] = useState(true); 
 
     async function getBrands() {
         try {
-            const { data } = await axios.request({
+           return await axios.request({
                 url: 'https://ecommerce.routemisr.com/api/v1/brands',
                 method: 'GET'
             });
-            setBrands(data.data);
         } catch (error) {
             console.log(error);
-        } finally {
-            setLoading(false);  
         }
     }
-
-    useEffect(() => {
-        getBrands();
-    }, []);
+    const { data, isError, isLoading } = useQuery({
+        queryKey: ["brands"],
+        queryFn: getBrands,
+        staleTime: 1000,
+        refetchOnMount: true,
+        refetchInterval: 1 * 60 * 60 * 5000,
+        refetchIntervalInBackground: true,
+        refetchOnWindowFocus: false,
+        refetchOnReconnect: true,
+      });
+    
+      console.log("brands",data);
+      
+      if (isLoading) return <Loading />;
+    
+    
 
     return (
         <>
@@ -43,11 +52,8 @@ export default function Brands() {
             <div className="container mx-auto px-4 py-8">
                 <h2 className="text-2xl font-semibold text-gray-800 mb-8">Our Brands</h2>
 
-                {loading ? (
-                    <Loading />  
-                ) : (
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {brands.map((brand) => (
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        {data.data.data.map((brand) => (
                             <div key={brand._id} className="group">
                                 <div className="transition-transform duration-300 group-hover:-translate-y-1">
                                     <div className="aspect-square overflow-hidden rounded-lg mb-2">
@@ -61,7 +67,6 @@ export default function Brands() {
                             </div>
                         ))}
                     </div>
-                )}
             </div>
         </>
     );

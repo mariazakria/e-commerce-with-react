@@ -17,6 +17,8 @@ npm i swiper aw npm install react-slick slick-carousel
 npm i jwt-decode => afok tshfer eltoken
 npm i react-detect-offline 
 
+react query aw tanstack query ==> bt3ml cashe lldata 3shan msh kol m ageb page yb3t request ==> npm i @tanstack/react-query
+
 
 Features
 User Authentication: Includes Login, Signup, and Reset Password functionalities.

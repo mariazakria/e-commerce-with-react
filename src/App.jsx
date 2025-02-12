@@ -20,6 +20,9 @@ import Products from './Pages/Products/Products'
 import Categories from './Pages/Categories/Categories'
 import Favorite from './Pages/Favorite/Favorite'
 import ResetPassword from './Pages/ResetPassword/ResetPassword'
+import ScrollToTop from './Components/ScrollToTop/ScrollToTop'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 export default function App() {
   const routes = createBrowserRouter([
@@ -56,31 +59,35 @@ export default function App() {
           element: <Categories />
         },
         {
-          path:"cart",
-          element:<Cart/>
+          path: 'cart',
+          element: <Cart />
         },
         {
-          path:"product/:id",
-          element:<ProductDetails/>
+          path: 'product/:id',
+          element: <ProductDetails />
         },
         {
           index: true,
           element: <Home />
         },
         {
-          path:"checkout",
-          element:<CheckOut/>
+          path: 'checkout',
+          element: <CheckOut />
         },
         {
-          path:"wishlist",
-          element:<Favorite/>
+          path: 'wishlist',
+          element: <Favorite />
         }
-      ],
+      ]
     },
     {
-      path:'/',
-      element: <GuestRoute><Layout/></GuestRoute>,
-      children:[
+      path: '/',
+      element: (
+        <GuestRoute>
+          <Layout />
+        </GuestRoute>
+      ),
+      children: [
         {
           path: 'signup',
           element: <Signup />
@@ -96,17 +103,24 @@ export default function App() {
       ]
     }
   ]);
-  
+
+  const m = new QueryClient();
+
   return (
     <>
-      <UserProvider>
-        <WishlistProvider>
-          <CartProvider>
-            <RouterProvider router = {routes}/>
-          </CartProvider>
-        </WishlistProvider>
-      </UserProvider>
-      <Toaster />
+      <QueryClientProvider client={m}>
+        <UserProvider>
+          <WishlistProvider>
+            <CartProvider>
+              <RouterProvider router={routes} />
+              <ScrollToTop />
+            </CartProvider>
+          </WishlistProvider>
+        </UserProvider>
+        <Toaster />
+        <ReactQueryDevtools initialIsOpen={false} />
+
+      </QueryClientProvider>
     </>
-  )
+  );
 }

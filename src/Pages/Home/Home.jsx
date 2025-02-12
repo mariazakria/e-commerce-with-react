@@ -5,9 +5,10 @@ import { useEffect, useState } from 'react';
 import HomeSlider from '../../Components/HomeSlider/HomeSlider';
 import SliderMain from '../../Components/SliderMain/SliderMain';
 import useConection from '../../Hook/UseConection/UseConection';
+import { useQuery } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 
 export default function Home() {
-  const[product,setProducts] = useState(null)
   const Online = useConection();
 
   async function getProducts() {
@@ -15,15 +16,34 @@ export default function Home() {
       url:"https://ecommerce.routemisr.com/api/v1/products",
       method:"GET"
     }
-    let {data} = await axios.request(options)
-      setProducts(data.data)    
+    return await axios.request(options)
   }
+  const queryHome = useQuery({})
+  console.log("queryHome",queryHome);
+  
+const {data, isError, isLoading, } = useQuery({
+// elawl kan string now array => array 3shan btsm7 adef details aktr
+  queryKey:["queryHome"],
+  // function api
+  queryFn: getProducts,
+  // staletime b3d 5000 second  htb2a adema....stale y3ni b2t adema
+    // elly msh most5dm esmo inactive
+  // kol sa3ten 3dlha
+  staleTime: 2 * 60 * 60 * 1000,
+  // by3ml fetch lldata aro7 lldata aw arg3 f y3ml fetch lldata => lw eldata stale f by3ml request yshof eladema
+  refetchOnMount: true,
+  // elw2t elly by3ml fetch w yb3t request b3dha
+  refetchInterval: 5000,
+// kol sania 
+  refetchIntervalInBackground:true,
+refetchOnWindowFocus:false,
+refetchOnReconnect:true,
 
-  useEffect(()=>{
-    if (Online) {
-      getProducts()
-    }
-  },[Online])
+
+})
+
+if(isLoading) return <Loading/>
+
 
   return (
     <>
@@ -34,11 +54,13 @@ export default function Home() {
     )}
     <HomeSlider/>
     <SliderMain/>
-    {!product ? <Loading/> : (
-      <div className="px-4 sm:px-0 grid sm:gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-        {product.map((product)=>{return <Card productInfo={product} key={product.id}/>})}
+    <div className="px-4 sm:px-0 grid sm:gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+        {data?.data?.data?.map((product) => (
+          <Card productInfo={product} key={product.id} />
+        ))}
       </div>
-    )}
+
+    )
     </>
   )
 }

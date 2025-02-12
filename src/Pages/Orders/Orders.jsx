@@ -1,26 +1,38 @@
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode'
-import React, { useEffect, useState } from 'react';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { UserContext } from '../../Context/User.context';
 import Loading from '../../Components/Loading/Loading';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { useQuery } from '@tanstack/react-query';
 
 export default function Orders() {
-    const [Orders, setOrders] = useState(null)
     const { token } = useContext(UserContext)
     const user = jwtDecode(token)
 
-    async function getUserOeders() {
+    async function getUserOrders() {
         const options = {
             url: `https://ecommerce.routemisr.com/api/v1/orders/user/${user.id}`,
             method: "GET",
         }
-        let { data } = await axios.request(options)
-        setOrders(data)
+        return await axios.request(options)
     }
-    useEffect(() => { getUserOeders() }, [])
+
+    const { data, isError, isLoading } = useQuery({
+        queryKey: ["orders"],
+        queryFn: getUserOrders,
+        staleTime: 1000,
+        refetchOnMount: true,
+        refetchInterval: 5000,
+        refetchIntervalInBackground: true,
+        refetchOnWindowFocus: false,
+        refetchOnReconnect: true,
+    })
+    console.log(data);
+    
+
+    if (isLoading) return <Loading />
 
     return (
         <>
@@ -67,37 +79,37 @@ export default function Orders() {
                         <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
                     </div>
 
-                    {Orders && Orders.length > 0 ? (
+                    {data.data && data.data.length > 0 ? (
                         <>
                             {/* Order Stats */}
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
                                 <div className="bg-gradient-to-br from-blue-50 to-white p-6 rounded-2xl shadow-sm">
                                     <p className="text-sm text-gray-600 mb-1">Total Orders</p>
-                                    <p className="text-3xl font-bold text-primary-600">{Orders.length}</p>
+                                    <p className="text-3xl font-bold text-primary-600">{data.data.length}</p>
                                 </div>
                                 <div className="bg-gradient-to-br from-green-50 to-white p-6 rounded-2xl shadow-sm">
                                     <p className="text-sm text-gray-600 mb-1">Paid Orders</p>
                                     <p className="text-3xl font-bold text-green-600">
-                                        {Orders.filter(order => order.isPaid).length}
+                                        {data.data.filter(order => order.isPaid).length}
                                     </p>
                                 </div>
                                 <div className="bg-gradient-to-br from-yellow-50 to-white p-6 rounded-2xl shadow-sm">
                                     <p className="text-sm text-gray-600 mb-1">In Delivery</p>
                                     <p className="text-3xl font-bold text-yellow-600">
-                                        {Orders.filter(order => !order.isDelivered).length}
+                                        {data.data.filter(order => !order.isDelivered).length}
                                     </p>
                                 </div>
                                 <div className="bg-gradient-to-br from-indigo-50 to-white p-6 rounded-2xl shadow-sm">
                                     <p className="text-sm text-gray-600 mb-1">Delivered</p>
                                     <p className="text-3xl font-bold text-indigo-600">
-                                        {Orders.filter(order => order.isDelivered).length}
+                                        {data.data.filter(order => order.isDelivered).length}
                                     </p>
                                 </div>
                             </div>
 
                             {/* Orders List */}
                             <div className="space-y-8">
-                                {Orders.map((order) => (
+                                {data.data.map((order) => (
                                     <div key={order.id} className="bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100 hover:border-blue-100 transition-colors duration-300">
                                         <div className="p-6">
                                             {/* Order Header */}

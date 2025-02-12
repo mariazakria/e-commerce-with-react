@@ -3,27 +3,33 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
 import Loading from '../../Components/Loading/Loading';
+import { useQuery } from '@tanstack/react-query';
 
 export default function Categories() {
-    const [categories, setCategories] = useState([]);
-    const [loading, setLoading] = useState(true);
 
     async function getCategories() {
-        setLoading(true);
         try {
-            const { data } = await axios.get('https://ecommerce.routemisr.com/api/v1/categories');
-            setCategories(data.data);
+            return await axios.get('https://ecommerce.routemisr.com/api/v1/categories');
         } catch (error) {
             console.log(error);
-        } finally {
-            setLoading(false);
-        }
+        } 
     }
 
-    useEffect(() => {
-        getCategories();
-    }, []);
-
+    const { data, isError, isLoading } = useQuery({
+        queryKey: ["category"],
+        queryFn: getCategories,
+        staleTime: 1000,
+        refetchOnMount: true,
+        refetchInterval: 1 * 60 * 60 * 5000,
+        refetchIntervalInBackground: true,
+        refetchOnWindowFocus: false,
+        refetchOnReconnect: true,
+      });
+    
+      console.log("category",data);
+      
+      if (isLoading) return <Loading />;
+    
     return (
         <>
             <Helmet>
@@ -62,11 +68,9 @@ export default function Categories() {
             </Helmet>
 
             <div className="container mx-auto px-4 py-8">
-                {loading ? (
-                    <Loading />
-                ) : (
+              
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {categories.map((category) => (
+                        {data.data.data.map((category) => (
                             <div key={category._id} className="group ">
                                 <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
                                     <div className="aspect-square overflow-hidden">
@@ -83,7 +87,6 @@ export default function Categories() {
                             </div>
                         ))}
                     </div>
-                )}
             </div>
         </>
     );
