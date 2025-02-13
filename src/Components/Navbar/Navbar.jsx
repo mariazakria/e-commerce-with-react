@@ -20,7 +20,7 @@ export default function Navbar() {
     <div className="container flex items-center align-center gap-12">
        <div className=''>
           <Link to={'/'}>
-          <span className={`fw-bold text-lg sm:text-2xl text-primary-600`}>
+          <span className={`fw-bold text-md sm:text-2xl text-primary-600`}>
           <i className={`fa-brands fa-shopify ${styles.sIcon}`}></i>
           hopN
           <i className={`fa-solid fa-eye text-xl   ${styles.showIcon}`}></i>w
