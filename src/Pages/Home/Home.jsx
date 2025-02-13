@@ -7,6 +7,7 @@ import SliderMain from '../../Components/SliderMain/SliderMain';
 import useConection from '../../Hook/UseConection/UseConection';
 import { useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
+import { Helmet } from 'react-helmet';
 
 export default function Home() {
   const Online = useConection();
@@ -47,6 +48,51 @@ if(isLoading) return <Loading/>
 
   return (
     <>
+   <Helmet>
+  <title>ShopNow - Your Ultimate E-Commerce Destination</title>
+  <meta 
+    name="description" 
+    content="Discover amazing products at unbeatable prices. Shop now for the latest trends and best deals!" 
+  />
+  <meta 
+    name="keywords" 
+    content="ecommerce, online shopping, products, deals, fashion, electronics" 
+  />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href={window.location.href} />
+  
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={window.location.href} />
+  <meta 
+    property="og:title" 
+    content="ShopNow - Your Ultimate E-Commerce Destination" 
+  />
+  <meta 
+    property="og:description" 
+    content="Discover amazing products at unbeatable prices. Shop now for the latest trends and best deals!" 
+  />
+  <meta 
+    property="og:image" 
+    content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgukvXuk-q7Pf_7TlsMCTlnVGzQP2zUVWHBg&s" 
+  />
+
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={window.location.href} />
+  <meta 
+    property="twitter:title" 
+    content="ShopNow - Your Ultimate E-Commerce Destination" 
+  />
+  <meta 
+    property="twitter:description" 
+    content="Discover amazing products at unbeatable prices. Shop now for the latest trends and best deals!" 
+  />
+  <meta 
+    property="twitter:image" 
+    content="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgukvXuk-q7Pf_7TlsMCTlnVGzQP2zUVWHBg&s" 
+  />
+</Helmet>
+
+
     {!Online && (
       <div className="fixed top-0 left-0 w-full bg-red-500 text-white text-center p-2 z-50">
         No Internet Connection
