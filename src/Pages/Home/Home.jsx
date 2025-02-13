@@ -60,7 +60,5 @@ if(isLoading) return <Loading/>
         ))}
       </div>
 
-    )
     </>
-  )
-}
+)}

@@ -36,7 +36,7 @@ export default function SliderMain() {
   if (isError) return <div>Error loading categories</div>;
 
   return (
-    <section className='my-8'>
+    <section className='my-8 px-4 sm:px-0'>
       <h2 className='mb-5 font-semibold text-gray-600 text-lg'>Shop Popular Categories</h2>
 
       <Swiper
@@ -54,7 +54,7 @@ export default function SliderMain() {
       >
         {data?.data?.data.map((category) => (
           <SwiperSlide key={category._id}>
-            <div className='h-72 mb-4 rounded-md overflow-hidden'>
+            <div className='h-72  mb-4 rounded-md overflow-hidden'>
               <img
                 className='w-full h-auto sm:h-full sm:object-cover'
                 src={category.image}  
