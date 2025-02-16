@@ -12,7 +12,7 @@ export default function Footer() {
     <footer className='bg-slate-100 py-8 px-3'>
         <div className="container space-y-4">
             <div className="header-footer">
-            <h2 className='text-xl font-semibold text-slate-800'>Get The FreshCart App</h2>
+            <h2 className='text-xl font-semibold text-slate-800'>Get The ShopNow App</h2>
             <p className='text-slate-400'>We will send you a link, open it on your phone to download the app.</p>
             </div>
             <div className="body-footer md:flex-row flex flex-col gap-2">
@@ -30,7 +30,7 @@ export default function Footer() {
                 </div>
                 <hr/>
                 <div className="download lg:flex-row flex flex-col items-center gap-3 ">
-                    <h3 className='font-semibold'>Get deliveries with FreshCart
+                    <h3 className='font-semibold'>Get deliveries with ShopNow
                     </h3>
                     <div className="img-footer flex flex-row ">
                     <img className='w-24' src={apple} alt="app-store" />
